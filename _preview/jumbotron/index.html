@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Playoff Push Power Rankings · Hockey Squad</title>
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Hockey Squad Playoff Push Power Rankings">
+<meta property="og:description" content="1. Maximum Penalty · 2. Chiang Mai Knockouts · 3. Liberate The Big Squid">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@700;900&family=Saira+Condensed:wght@500;700&family=Saira:wght@400;500&display=swap">
+<style>
+  /* The arena scoreboard: one dark look on purpose, whatever the phone's setting. */
+  /* Doto draws "." as a plus, so 98.9 read as 98+9: take just the period from a plain bold face */
+  @font-face { font-family: "LED Dot"; src: local("Arial-BoldMT"), local("Arial Bold"), local("Helvetica-Bold"), local("Helvetica Bold"); unicode-range: U+2E; }
+  :root {
+    --arena: #0b0f14;
+    --panel: #121922;
+    --panel-edge: #232e3b;
+    --text: #eef2f6;
+    --soft: #c9d2dc;
+    --muted: #8391a2;
+    --amber: #ffb627;
+    --amber-dim: #8a6a2a;
+    --red: #ff4b3e;
+    --green: #3ee07a;
+    --glow-amber: 0 0 10px rgba(255, 182, 39, .45);
+    --glow-red: 0 0 10px rgba(255, 75, 62, .5);
+    --led: "LED Dot", "Doto", ui-monospace, Menlo, monospace;
+    --label: "Saira Condensed", "Arial Narrow", sans-serif;
+    --body: "Saira", "Helvetica Neue", Arial, sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: radial-gradient(120% 60% at 50% 0%, #17212c 0%, var(--arena) 60%) var(--arena);
+    color: var(--text);
+    font: 400 16.5px/1.55 var(--body);
+    padding-inline: 16px;
+    padding-block: calc(20px + env(safe-area-inset-top, 0px)) calc(40px + env(safe-area-inset-bottom, 0px));
+  }
+  .wrap { max-width: 640px; margin: 0 auto; display: grid; gap: 34px; }
+  /* LED panel: a faint grid of unlit bulbs */
+  .panel, .game, .team, header.masthead {
+    background-color: var(--panel);
+    background-image: radial-gradient(rgba(255, 255, 255, .045) 1px, transparent 1.3px);
+    background-size: 6px 6px;
+    border: 1px solid var(--panel-edge);
+    border-radius: 10px;
+  }
+
+  header.masthead { display: grid; gap: 10px; padding: 18px 16px 20px; border-top: 4px solid var(--red); }
+  .eyebrow { margin: 0; font: 700 14px/1.2 var(--label); letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+  h1 { margin: 0; font: 900 clamp(30px, 8.6vw, 46px)/1.05 var(--led); color: var(--amber); text-shadow: var(--glow-amber); text-transform: uppercase; text-wrap: balance; }
+  .week-line { margin: 0; font: 700 15px/1.3 var(--label); letter-spacing: .12em; text-transform: uppercase; color: var(--red); text-shadow: var(--glow-red); font-variant-numeric: tabular-nums; }
+  .intro { display: grid; gap: 10px; margin-top: 4px; }
+  .intro p { margin: 0; color: var(--soft); max-width: 62ch; }
+  .sample { margin: 0 0 4px; padding: 8px 12px; border: 1px dashed var(--muted); border-radius: 6px; font-size: 14px; color: var(--muted); }
+
+  h2.section { margin: 0 0 12px; font: 700 20px/1 var(--label); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+
+  /* the week */
+  .games { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; }
+  .game { padding: 10px 12px; display: grid; gap: 6px; }
+  .game .line { display: grid; grid-template-columns: 22px 1fr auto; align-items: center; gap: 10px; color: var(--muted); font: 500 16px/1.2 var(--label); text-transform: uppercase; letter-spacing: .03em; }
+  .game .line.win { color: var(--text); }
+  .game .nm { overflow-wrap: anywhere; }
+  .game .sc { font: 900 22px/1 var(--led); color: var(--amber-dim); font-variant-numeric: tabular-nums; }
+  .game .line.win .sc { color: var(--amber); text-shadow: var(--glow-amber); }
+  .awards { margin: 14px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+  .award { display: grid; gap: 6px; align-content: start; padding: 12px; background: var(--panel); border: 1px solid var(--panel-edge); border-radius: 10px; }
+  .award dt { font: 700 13px/1.2 var(--label); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+  .award dd { margin: 0; display: grid; gap: 4px; }
+  .award .big { font: 900 30px/1 var(--led); color: var(--amber); text-shadow: var(--glow-amber); font-variant-numeric: tabular-nums; }
+  .award .by { font-size: 14.5px; line-height: 1.35; color: var(--soft); overflow-wrap: anywhere; }
+
+  /* the rankings */
+  .tier-group { display: grid; gap: 10px; }
+  .tier-group + .tier-group { margin-top: 22px; }
+  h2.tier { margin: 0; display: flex; align-items: center; gap: 12px; font: 900 22px/1.1 var(--led); text-transform: uppercase; color: var(--red); text-shadow: var(--glow-red); }
+  h2.tier::after { content: ""; flex: 1; height: 6px; background: radial-gradient(circle, var(--red) 1.6px, transparent 2px) 0 50% / 8px 6px repeat-x; opacity: .7; }
+  .tier-blurb p { margin: 0; color: var(--muted); }
+  .team { padding: 14px 14px 14px 8px; display: grid; grid-template-columns: 56px 1fr; gap: 10px; }
+  .rank { display: grid; justify-items: center; align-content: start; gap: 6px; }
+  .rank .num { font: 900 46px/.9 var(--led); color: var(--amber); text-shadow: var(--glow-amber); font-variant-numeric: tabular-nums; }
+  .move { font: 700 15px/1 var(--label); letter-spacing: .04em; white-space: nowrap; }
+  .move.up { color: var(--green); text-shadow: 0 0 8px rgba(62, 224, 122, .5); }
+  .move.down { color: var(--red); text-shadow: var(--glow-red); }
+  .move.same { color: var(--muted); }
+  .move.new { color: var(--amber); }
+  .body { display: grid; gap: 10px; min-width: 0; }
+  .who { display: grid; grid-template-columns: 46px 1fr; gap: 12px; align-items: center; }
+  .who h3 { margin: 0; font: 700 22px/1.05 var(--label); text-transform: uppercase; letter-spacing: .02em; overflow-wrap: anywhere; }
+  .owner { margin: 3px 0 0; font-size: 14px; color: var(--muted); }
+  .owner .rec { color: var(--amber); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .logo { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; background: #1b2430; border: 2px solid var(--panel-edge); display: block; }
+  .logo.sm { width: 22px; height: 22px; border-width: 1px; }
+  .logo.mono { display: grid; place-items: center; font: 700 15px/1 var(--label); color: var(--muted); }
+  .logo.mono.sm { font-size: 9px; }
+  .note { display: grid; gap: 8px; color: var(--soft); }
+  .note p { margin: 0; }
+  .facts { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; font-size: 14.5px; padding-top: 10px; border-top: 1px dashed var(--panel-edge); }
+  .facts div { display: contents; }
+  .facts dt { font: 700 13px/1.6 var(--label); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .facts dd { margin: 0; color: var(--text); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  .facts .dim { color: var(--muted); }
+  .wl { display: inline-block; min-width: 1.4em; font-weight: 500; }
+  .wl.w { color: var(--green); }
+  .wl.l { color: var(--red); }
+
+  footer { font-size: 13.5px; color: var(--muted); border-top: 1px solid var(--panel-edge); padding-top: 14px; }
+  footer p { margin: 0; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="masthead">
+    <p class="sample">Sample page built from last season's Week 19. The order, tiers and notes are placeholders for yours; every number comes from ESPN.</p>
+    <p class="eyebrow">Hockey Squad · 2025–26 season</p>
+    <h1>Playoff Push Power Rankings</h1>
+    <p class="week-line">Week 19 of 21 · Feb 23 – Mar 1, 2026</p>
+    <div class="intro"><p>Two weeks left in the regular season and six playoff spots up for grabs. Let's see where everyone stands.</p></div>
+  </header>
+
+  <section aria-labelledby="week-head">
+    <h2 class="section" id="week-head">Week 19 results</h2>
+    <div class="games"><div class="game"><div class="line win"><img class="logo sm" src="../../logos/6d9e0302cda7.svg" alt="" loading="lazy"><span class="nm">Washington Generals</span><span class="sc">95.6</span></div><div class="line "><img class="logo sm" src="../../logos/b1f3f3063a09.svg" alt="" loading="lazy"><span class="nm">Chiang Mai Knockouts</span><span class="sc">78.1</span></div></div> <div class="game"><div class="line win"><img class="logo sm" src="../../logos/1ffafe70ed89.svg" alt="" loading="lazy"><span class="nm">Maximum Penalty</span><span class="sc">98.9</span></div><div class="line "><img class="logo sm" src="../../logos/c43be95eeef3.svg" alt="" loading="lazy"><span class="nm">Danimals</span><span class="sc">47.8</span></div></div> <div class="game"><div class="line win"><img class="logo sm" src="../../logos/a2a58021e11a.jpg" alt="" loading="lazy"><span class="nm">Commish Campi</span><span class="sc">97.4</span></div><div class="line "><img class="logo sm" src="../../logos/3cf3c8f5cf35.jpg" alt="" loading="lazy"><span class="nm">Liberate The Big Squid</span><span class="sc">87.6</span></div></div> <div class="game"><div class="line win"><img class="logo sm" src="../../logos/6364aecf0f2e.jpg" alt="" loading="lazy"><span class="nm">Central District Cityboys</span><span class="sc">75.6</span></div><div class="line "><img class="logo sm" src="../../logos/fc145f8cdeba.jpg" alt="" loading="lazy"><span class="nm">Tapps Tiger Muskies</span><span class="sc">69.5</span></div></div> <div class="game"><div class="line win"><img class="logo sm" src="../../logos/a44a2aff861e.svg" alt="" loading="lazy"><span class="nm">JAIGNER 69ers</span><span class="sc">65.8</span></div><div class="line "><img class="logo sm" src="../../logos/4d58aca191f9.jpg" alt="" loading="lazy"><span class="nm">The leafs if they were good</span><span class="sc">60.7</span></div></div></div>
+    <dl class="awards"><div class="award"><dt>High score</dt><dd><span class="big">98.9</span><span class="by">Maximum Penalty</span></dd></div><div class="award"><dt>Low score</dt><dd><span class="big">47.8</span><span class="by">Danimals</span></dd></div><div class="award"><dt>Closest game</dt><dd><span class="big">5.1 pts</span><span class="by">JAIGNER 69ers over The leafs if they were good</span></dd></div><div class="award"><dt>Biggest blowout</dt><dd><span class="big">51.1 pts</span><span class="by">Maximum Penalty over Danimals</span></dd></div><div class="award"><dt>Tough luck</dt><dd><span class="big">87.6</span><span class="by">Liberate The Big Squid outscored 6 of 9 teams and still lost</span></dd></div><div class="award"><dt>Player of the week</dt><dd><span class="big">17.0 pts</span><span class="by">Matt Boldy (LW, MIN) for Commish Campi</span></dd></div></dl>
+  </section>
+
+  <section aria-labelledby="rank-head">
+    <h2 class="section" id="rank-head">Power Rankings</h2>
+    <section class="tier-group tier-1"><h2 class="tier"><span>Cup favorites</span></h2>
+      <article class="team" id="team-4">
+        <div class="rank"><span class="num">1</span><span class="move up" title="Up 1">▲1</span></div>
+        <div class="body">
+          <header class="who"><img class="logo " src="../../logos/1ffafe70ed89.svg" alt="" loading="lazy"><div><h3>Maximum Penalty</h3>
+            <p class="owner">Danny Degginger · <span class="rec">13-6</span> · 1st place</p></div></header>
+          <div class="note"><p>Dropped 98.9 on the Danimals, the top score of the week, and leads the league in points for. The Squid and the Muskies stand between Dan and a division title.</p></div>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl w">W</b> 98.9–47.8 vs Danimals</dd></div><div><dt>Points for</dt><dd>1,934.4 <span class="dim">(1st)</span></dd></div><div><dt>Streak</dt><dd>W1</dd></div><div><dt>Last week</dt><dd>#2</dd></div><div><dt>Still to play</dt><dd>Liberate The Big Squid, Tapps Tiger Muskies</dd></div></dl>
+        </div>
+      </article>
+      <article class="team" id="team-7">
+        <div class="rank"><span class="num">2</span><span class="move up" title="Up 1">▲1</span></div>
+        <div class="body">
+          <header class="who"><img class="logo " src="../../logos/b1f3f3063a09.svg" alt="" loading="lazy"><div><h3>Chiang Mai Knockouts</h3>
+            <p class="owner">Scott Kalma · <span class="rec">12-7</span> · 4th place</p></div></header>
+          <div class="note"><p>A seven-game win streak ended against the Generals, but only Maximum Penalty has scored more this season.</p></div>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl l">L</b> 78.1–95.6 vs Washington Generals</dd></div><div><dt>Points for</dt><dd>1,894.1 <span class="dim">(2nd)</span></dd></div><div><dt>Streak</dt><dd>L1</dd></div><div><dt>Last week</dt><dd>#3</dd></div><div><dt>Still to play</dt><dd>JAIGNER 69ers, Central District Cityboys</dd></div></dl>
+        </div>
+      </article>
+      <article class="team" id="team-2">
+        <div class="rank"><span class="num">3</span><span class="move down" title="Down 2">▼2</span></div>
+        <div class="body">
+          <header class="who"><img class="logo " src="../../logos/3cf3c8f5cf35.jpg" alt="" loading="lazy"><div><h3>Liberate The Big Squid</h3>
+            <p class="owner">David Degginger · <span class="rec">13-6</span> · 2nd place</p></div></header>
+          <div class="note"><p>Lost to the Commish by ten, and Matt Boldy did most of the damage. Still leads the Apples, with Maximum Penalty up next.</p></div>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl l">L</b> 87.6–97.4 vs Commish Campi</dd></div><div><dt>Points for</dt><dd>1,883.6 <span class="dim">(3rd)</span></dd></div><div><dt>Streak</dt><dd>L1</dd></div><div><dt>Last week</dt><dd>#1</dd></div><div><dt>Still to play</dt><dd>Maximum Penalty, Washington Generals</dd></div></dl>
+        </div>
+      </article></section><section class="tier-group tier-2"><h2 class="tier"><span>In the hunt</span></h2>
+      <article class="team" id="team-6">
+        <div class="rank"><span class="num">4</span><span class="move same" title="No change">–</span></div>
+        <div class="body">
+          <header class="who"><img class="logo " src="../../logos/a44a2aff861e.svg" alt="" loading="lazy"><div><h3>JAIGNER 69ers</h3>
+            <p class="owner">Joe Aigner · <span class="rec">13-6</span> · 3rd place</p></div></header>
+          <div class="note"><p>Four straight wins, the last one by five points over the Leafs. Chiang Mai next week could be a playoff preview.</p></div>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl w">W</b> 65.8–60.7 vs The leafs if they were good</dd></div><div><dt>Points for</dt><dd>1,881.4 <span class="dim">(4th)</span></dd></div><div><dt>Streak</dt><dd>W4</dd></div><div><dt>Last week</dt><dd>#4</dd></div><div><dt>Still to play</dt><dd>Chiang Mai Knockouts, Danimals</dd></div></dl>
+        </div>
+      </article>
+      <article class="team" id="team-1">
+        <div class="rank"><span class="num">5</span><span class="move same" title="No change">–</span></div>
+        <div class="body">
+          <header class="who"><img class="logo " src="../../logos/a2a58021e11a.jpg" alt="" loading="lazy"><div><h3>Commish Campi</h3>
+            <p class="owner">David Campi · <span class="rec">11-8</span> · 5th place</p></div></header>
+          <div class="note"><p>Beat the Squid 97.4 to 87.6 behind the player of the week. Two wins in a row with the Muskies and the Leafs left.</p></div>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl w">W</b> 97.4–87.6 vs Liberate The Big Squid</dd></div><div><dt>Points for</dt><dd>1,733.7 <span class="dim">(5th)</span></dd></div><div><dt>Streak</dt><dd>W2</dd></div><div><dt>Last week</dt><dd>#5</dd></div><div><dt>Still to play</dt><dd>Tapps Tiger Muskies, The leafs if they were good</dd></div></dl>
+        </div>
+      </article></section><section class="tier-group tier-3"><h2 class="tier"><span>On the bubble</span></h2>
+      <article class="team" id="team-10">
+        <div class="rank"><span class="num">6</span><span class="move up" title="Up 1">▲1</span></div>
+        <div class="body">
+          <header class="who"><img class="logo " src="../../logos/6d9e0302cda7.svg" alt="" loading="lazy"><div><h3>Washington Generals</h3>
+            <p class="owner">Alex Tuvin · <span class="rec">9-10</span> · 7th place</p></div></header>
+          <div class="note"><p>Knocked off Chiang Mai with 95.6, the third-best score of the week. One game under .500 with the Danimals and the Squid left.</p></div>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl w">W</b> 95.6–78.1 vs Chiang Mai Knockouts</dd></div><div><dt>Points for</dt><dd>1,670.0 <span class="dim">(7th)</span></dd></div><div><dt>Streak</dt><dd>W1</dd></div><div><dt>Last week</dt><dd>#7</dd></div><div><dt>Still to play</dt><dd>Danimals, Liberate The Big Squid</dd></div></dl>
+        </div>
+      </article>
+      <article class="team" id="team-5">
+        <div class="rank"><span class="num">7</span><span class="move down" title="Down 1">▼1</span></div>
+        <div class="body">
+          <header class="who"><img class="logo " src="../../logos/4d58aca191f9.jpg" alt="" loading="lazy"><div><h3>The leafs if they were good</h3>
+            <p class="owner">Caden Crowe · <span class="rec">9-10</span> · 6th place</p></div></header>
+          <div class="note"><p>Lost by five to the 69ers and now share a 9-10 record with the Generals. The Cityboys and the Commish are left.</p></div>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl l">L</b> 60.7–65.8 vs JAIGNER 69ers</dd></div><div><dt>Points for</dt><dd>1,693.8 <span class="dim">(6th)</span></dd></div><div><dt>Streak</dt><dd>L1</dd></div><div><dt>Last week</dt><dd>#6</dd></div><div><dt>Still to play</dt><dd>Central District Cityboys, Commish Campi</dd></div></dl>
+        </div>
+      </article></section><section class="tier-group tier-4"><h2 class="tier"><span>Playing spoiler</span></h2>
+      <article class="team" id="team-9">
+        <div class="rank"><span class="num">8</span><span class="move same" title="No change">–</span></div>
+        <div class="body">
+          <header class="who"><img class="logo " src="../../logos/c43be95eeef3.svg" alt="" loading="lazy"><div><h3>Danimals</h3>
+            <p class="owner">Dan Campi · <span class="rec">7-12</span> · 9th place</p></div></header>
+          <div class="note"><p>Scored 47.8, the low of the week, and ran into the league's best offense doing it.</p></div>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl l">L</b> 47.8–98.9 vs Maximum Penalty</dd></div><div><dt>Points for</dt><dd>1,646.7 <span class="dim">(9th)</span></dd></div><div><dt>Streak</dt><dd>L2</dd></div><div><dt>Last week</dt><dd>#8</dd></div><div><dt>Still to play</dt><dd>Washington Generals, JAIGNER 69ers</dd></div></dl>
+        </div>
+      </article>
+      <article class="team" id="team-3">
+        <div class="rank"><span class="num">9</span><span class="move same" title="No change">–</span></div>
+        <div class="body">
+          <header class="who"><img class="logo " src="../../logos/fc145f8cdeba.jpg" alt="" loading="lazy"><div><h3>Tapps Tiger Muskies</h3>
+            <p class="owner">Kenton Barker · <span class="rec">7-12</span> · 8th place</p></div></header>
+          <div class="note"><p>Lost to a team that hadn't won all season. Four straight losses.</p></div>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl l">L</b> 69.5–75.6 vs Central District Cityboys</dd></div><div><dt>Points for</dt><dd>1,657.0 <span class="dim">(8th)</span></dd></div><div><dt>Streak</dt><dd>L4</dd></div><div><dt>Last week</dt><dd>#9</dd></div><div><dt>Still to play</dt><dd>Commish Campi, Maximum Penalty</dd></div></dl>
+        </div>
+      </article>
+      <article class="team" id="team-8">
+        <div class="rank"><span class="num">10</span><span class="move same" title="No change">–</span></div>
+        <div class="body">
+          <header class="who"><img class="logo " src="../../logos/6364aecf0f2e.jpg" alt="" loading="lazy"><div><h3>Central District Cityboys</h3>
+            <p class="owner">Andrew Doron · <span class="rec">1-18</span> · 10th place</p></div></header>
+          <div class="note"><p>First win of the year, 75.6 to 69.5 over the Muskies. Now 1-18 and free to ruin someone's season.</p></div>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl w">W</b> 75.6–69.5 vs Tapps Tiger Muskies</dd></div><div><dt>Points for</dt><dd>1,439.1 <span class="dim">(10th)</span></dd></div><div><dt>Streak</dt><dd>W1</dd></div><div><dt>Last week</dt><dd>#10</dd></div><div><dt>Still to play</dt><dd>The leafs if they were good, Chiang Mai Knockouts</dd></div></dl>
+        </div>
+      </article></section>
+  </section>
+
+  <footer><p>Stats from ESPN through Sunday, Mar 1. Rankings are the commissioner&#x27;s opinion and don&#x27;t change the standings.</p></footer>
+</main>
+</body>
+</html>
