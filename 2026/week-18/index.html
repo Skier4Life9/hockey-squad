@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Olympic Break Power Rankings · Hockey Squad</title>
+<title>Hockey Squad Power Rankings</title>
 <meta name="robots" content="noindex, nofollow">
-<meta property="og:title" content="Hockey Squad Olympic Break Power Rankings">
+<meta property="og:title" content="Hockey Squad Power Rankings">
 <meta property="og:description" content="1. Liberate The Big Squid · 2. Maximum Penalty · 3. Chiang Mai Knockouts">
 <meta property="og:type" content="article">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,6 +70,7 @@
   .week-line { margin: 0; font: 700 15px/1.3 var(--label); letter-spacing: .12em; text-transform: uppercase; color: var(--red); text-shadow: var(--glow-red); font-variant-numeric: tabular-nums; }
   .intro { display: grid; gap: 10px; margin-top: 4px; }
   .intro p { margin: 0; color: var(--soft); max-width: 62ch; }
+  .intro:empty { display: none; }
   .sample { margin: 0 0 4px; padding: 8px 12px; border: 1px dashed var(--muted); border-radius: 6px; font-size: 14px; color: var(--muted); }
 
   h2.section { margin: 0 0 12px; font: 700 20px/1 var(--label); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
@@ -108,6 +109,14 @@
     column-gap: 10px;
     color: #141414;
   }
+  .team { position: relative; }
+  /* One gold cup per league title, in the card's top-right corner. */
+  .cups { position: absolute; top: 6px; right: 8px; display: flex; gap: 3px; margin: 0; padding: 0; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .cups svg { width: 26px; height: 35px; display: block; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .45)); }
+  .cups:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 4px; }
+  /* Hover, or tap on a phone, names the seasons. */
+  .cups-tip { position: absolute; top: calc(100% + 6px); right: 0; z-index: 2; white-space: nowrap; padding: 5px 9px; border-radius: 6px; background: var(--card-navy); color: #fff; font: 600 13px/1.2 var(--label); box-shadow: 0 4px 12px rgba(0, 0, 0, .4); opacity: 0; visibility: hidden; transition: opacity .12s; }
+  .cups:hover .cups-tip, .cups:focus .cups-tip { opacity: 1; visibility: visible; }
   .num-row { grid-area: num; display: flex; align-items: center; gap: 8px; min-height: 40px; }
   .num { font: 400 36px/1 var(--anton); color: #fff; text-shadow: 2px 2px 0 rgba(0, 0, 0, .25); font-variant-numeric: tabular-nums; }
   .move { font: 700 13px/1 var(--label); padding: 4px 7px; border-radius: 999px; background: #fff; white-space: nowrap; }
@@ -134,6 +143,12 @@
   .record table { width: 100%; border-collapse: collapse; font: 500 14.5px/1.25 var(--label); color: #1d1420; font-variant-numeric: tabular-nums; }
   .record th, .record td { padding: 5px 4px; text-align: right; vertical-align: top; }
   .record th:nth-child(-n+2), .record td:nth-child(-n+2) { text-align: left; }
+  /* The result column, right-aligned top to bottom; the totals row's first cell spans two columns.
+     The record hangs left from that edge into the empty space beside "Season totals", so it never
+     wraps or widens the column. */
+  .record thead th:nth-child(3), .record tbody td:nth-child(3) { text-align: right; }
+  .record tfoot td:nth-child(2) { position: relative; }
+  .record tfoot .rec { position: absolute; top: 5px; right: 4px; white-space: nowrap; }
   .record thead th { color: var(--maroon); font-weight: 700; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; border-top: 2px solid var(--maroon); border-bottom: 1.5px solid var(--maroon); }
   .record td.opp { overflow-wrap: anywhere; }
   .record tfoot th, .record tfoot td { color: var(--maroon); font-weight: 700; border-top: 1.5px solid var(--maroon); border-bottom: 2px solid var(--maroon); }
@@ -154,10 +169,10 @@
 <body>
 <main class="wrap">
   <header class="masthead">
-    <p class="sample">Sample page from last season. The order here is just the standings.</p>
     <p class="eyebrow">Hockey Squad · 2025–26 season</p>
-    <h1>Olympic Break Power Rankings</h1>
+    <h1>Hockey Squad Power Rankings</h1>
     <p class="week-line">Week 18 of 21 · Feb 2–22, 2026</p>
+    <p class="sample">Sample page from last season. The order here is just the standings.</p>
     <div class="intro"></div>
   </header>
 
@@ -168,23 +183,24 @@
   </section>
 
   <section aria-labelledby="rank-head">
-    <h2 class="section" id="rank-head">Power Rankings</h2>
+    <h2 class="section" id="rank-head">Current Power Rankings</h2>
     <section class="tier-group tier-1"><h2 class="tier"><span>Standings order</span></h2>
       <article class="team" id="team-2">
         <div class="num-row"><span class="num">1</span></div>
         <div class="photo"><img class="logo " src="../../logos/3cf3c8f5cf35.jpg" alt="" loading="lazy"></div>
+        <button class="cups" type="button" aria-label="Champion 2021–22"><svg viewBox="0 0 24 32" aria-hidden="true"><g fill="#f4c430" stroke="#7a5b00" stroke-width="1.2"><path d="M6.5 1.5h11l-1.2 5.2a4.4 4.4 0 0 1-8.6 0Z"/><rect x="10.3" y="9.6" width="3.4" height="2.6"/><rect x="8" y="12.2" width="8" height="4" rx=".6"/><rect x="6.4" y="16.2" width="11.2" height="5" rx=".6"/><rect x="4.8" y="21.2" width="14.4" height="9" rx="1"/></g><path d="M8.6 3h2.2l-.4 3.4" fill="none" stroke="#fff6c8" stroke-width="1.1" stroke-linecap="round"/></svg><span class="cups-tip" aria-hidden="true">Champion 2021–22</span></button>
         <div class="panels">
           <h3 class="name">Liberate The Big Squid</h3>
           <p class="band">David Degginger</p>
-          <p class="bio"><span><b>Record:</b> 13-5</span><span><b>Place:</b> 1st</span><span><b>Streak:</b> W1</span><span><b>Still to play:</b> Commish Campi, Maximum Penalty, Washington Generals</span></p>
+          <p class="bio"><span><b>Record:</b> 13-5</span><span><b>Place:</b> 1st (1st Apples)</span><span><b>Streak:</b> W1</span></p>
         </div>
         <p class="wk-score"><span class="wk-pts">89.9</span><span class="wk-label">Week 18</span></p>
         <div class="record">
           <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
           <table>
             <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
-            <tbody><tr><td>18</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>89.9</td><td>58.7</td></tr></tbody>
-            <tfoot><tr><th colspan="2">Season totals</th><td>13-5</td><td>1,796.0</td><td>1,632.8</td></tr></tfoot>
+            <tbody><tr><td>1</td><td class="opp">Tapps Tiger Muskies</td><td class="res w">W</td><td>83.2</td><td>48.0</td></tr><tr><td>2</td><td class="opp">Chiang Mai Knockouts</td><td class="res l">L</td><td>102.3</td><td>111.2</td></tr><tr><td>3</td><td class="opp">Commish Campi</td><td class="res w">W</td><td>116.8</td><td>98.1</td></tr><tr><td>4</td><td class="opp">The leafs if they were good</td><td class="res w">W</td><td>86.9</td><td>85.6</td></tr><tr><td>5</td><td class="opp">Danimals</td><td class="res w">W</td><td>94.0</td><td>64.4</td></tr><tr><td>6</td><td class="opp">Maximum Penalty</td><td class="res w">W</td><td>96.9</td><td>82.1</td></tr><tr><td>7</td><td class="opp">Washington Generals</td><td class="res w">W</td><td>91.7</td><td>85.1</td></tr><tr><td>8</td><td class="opp">JAIGNER 69ers</td><td class="res l">L</td><td>84.3</td><td>108.1</td></tr><tr><td>9</td><td class="opp">Danimals</td><td class="res l">L</td><td>91.2</td><td>122.9</td></tr><tr><td>10</td><td class="opp">Tapps Tiger Muskies</td><td class="res w">W</td><td>100.1</td><td>79.7</td></tr><tr><td>11</td><td class="opp">Chiang Mai Knockouts</td><td class="res w">W</td><td>123.5</td><td>96.1</td></tr><tr><td>12</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>58.1</td><td>56.6</td></tr><tr><td>13</td><td class="opp">The leafs if they were good</td><td class="res w">W</td><td>104.1</td><td>102.6</td></tr><tr><td>14</td><td class="opp">Commish Campi</td><td class="res w">W</td><td>142.4</td><td>81.2</td></tr><tr><td>15</td><td class="opp">Maximum Penalty</td><td class="res l">L</td><td>113.9</td><td>123.1</td></tr><tr><td>16</td><td class="opp">Washington Generals</td><td class="res w">W</td><td>127.1</td><td>124.3</td></tr><tr><td>17</td><td class="opp">JAIGNER 69ers</td><td class="res l">L</td><td>89.6</td><td>105.0</td></tr><tr><td>18</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>89.9</td><td>58.7</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">13-5</span></td><td>1,796.0</td><td>1,632.8</td></tr></tfoot>
           </table>
           <div class="note"></div>
         </div>
@@ -192,18 +208,19 @@
       <article class="team" id="team-4">
         <div class="num-row"><span class="num">2</span></div>
         <div class="photo"><img class="logo " src="../../logos/1ffafe70ed89.svg" alt="" loading="lazy"></div>
+        
         <div class="panels">
           <h3 class="name">Maximum Penalty</h3>
           <p class="band">Danny Degginger</p>
-          <p class="bio"><span><b>Record:</b> 12-6</span><span><b>Place:</b> 2nd</span><span><b>Streak:</b> L2</span><span><b>Still to play:</b> Danimals, Liberate The Big Squid, Tapps Tiger Muskies</span></p>
+          <p class="bio"><span><b>Record:</b> 12-6</span><span><b>Place:</b> 2nd (1st Dudes)</span><span><b>Streak:</b> L2</span></p>
         </div>
         <p class="wk-score"><span class="wk-pts">61.2</span><span class="wk-label">Week 18</span></p>
         <div class="record">
           <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
           <table>
             <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
-            <tbody><tr><td>18</td><td class="opp">Chiang Mai Knockouts</td><td class="res l">L</td><td>61.2</td><td>87.1</td></tr></tbody>
-            <tfoot><tr><th colspan="2">Season totals</th><td>12-6</td><td>1,835.5</td><td>1,786.5</td></tr></tfoot>
+            <tbody><tr><td>1</td><td class="opp">JAIGNER 69ers</td><td class="res l">L</td><td>77.4</td><td>105.0</td></tr><tr><td>2</td><td class="opp">Danimals</td><td class="res w">W</td><td>131.3</td><td>91.9</td></tr><tr><td>3</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>102.5</td><td>94.0</td></tr><tr><td>4</td><td class="opp">Washington Generals</td><td class="res w">W</td><td>102.0</td><td>90.5</td></tr><tr><td>5</td><td class="opp">Commish Campi</td><td class="res l">L</td><td>83.0</td><td>125.1</td></tr><tr><td>6</td><td class="opp">Liberate The Big Squid</td><td class="res l">L</td><td>82.1</td><td>96.9</td></tr><tr><td>7</td><td class="opp">Tapps Tiger Muskies</td><td class="res w">W</td><td>119.7</td><td>106.8</td></tr><tr><td>8</td><td class="opp">The leafs if they were good</td><td class="res w">W</td><td>99.1</td><td>82.8</td></tr><tr><td>9</td><td class="opp">JAIGNER 69ers</td><td class="res w">W</td><td>133.0</td><td>115.7</td></tr><tr><td>10</td><td class="opp">Chiang Mai Knockouts</td><td class="res w">W</td><td>121.8</td><td>108.5</td></tr><tr><td>11</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>135.8</td><td>83.7</td></tr><tr><td>12</td><td class="opp">Washington Generals</td><td class="res l">L</td><td>40.9</td><td>57.8</td></tr><tr><td>13</td><td class="opp">Commish Campi</td><td class="res w">W</td><td>123.2</td><td>114.8</td></tr><tr><td>14</td><td class="opp">Danimals</td><td class="res w">W</td><td>111.3</td><td>108.4</td></tr><tr><td>15</td><td class="opp">Liberate The Big Squid</td><td class="res w">W</td><td>123.1</td><td>113.9</td></tr><tr><td>16</td><td class="opp">Tapps Tiger Muskies</td><td class="res w">W</td><td>105.4</td><td>103.1</td></tr><tr><td>17</td><td class="opp">The leafs if they were good</td><td class="res l">L</td><td>82.7</td><td>100.5</td></tr><tr><td>18</td><td class="opp">Chiang Mai Knockouts</td><td class="res l">L</td><td>61.2</td><td>87.1</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">12-6</span></td><td>1,835.5</td><td>1,786.5</td></tr></tfoot>
           </table>
           <div class="note"></div>
         </div>
@@ -211,18 +228,19 @@
       <article class="team" id="team-7">
         <div class="num-row"><span class="num">3</span></div>
         <div class="photo"><img class="logo " src="../../logos/b1f3f3063a09.svg" alt="" loading="lazy"></div>
+        <button class="cups" type="button" aria-label="2-time champion: 2024–25, 2025–26"><svg viewBox="0 0 24 32" aria-hidden="true"><g fill="#f4c430" stroke="#7a5b00" stroke-width="1.2"><path d="M6.5 1.5h11l-1.2 5.2a4.4 4.4 0 0 1-8.6 0Z"/><rect x="10.3" y="9.6" width="3.4" height="2.6"/><rect x="8" y="12.2" width="8" height="4" rx=".6"/><rect x="6.4" y="16.2" width="11.2" height="5" rx=".6"/><rect x="4.8" y="21.2" width="14.4" height="9" rx="1"/></g><path d="M8.6 3h2.2l-.4 3.4" fill="none" stroke="#fff6c8" stroke-width="1.1" stroke-linecap="round"/></svg><svg viewBox="0 0 24 32" aria-hidden="true"><g fill="#f4c430" stroke="#7a5b00" stroke-width="1.2"><path d="M6.5 1.5h11l-1.2 5.2a4.4 4.4 0 0 1-8.6 0Z"/><rect x="10.3" y="9.6" width="3.4" height="2.6"/><rect x="8" y="12.2" width="8" height="4" rx=".6"/><rect x="6.4" y="16.2" width="11.2" height="5" rx=".6"/><rect x="4.8" y="21.2" width="14.4" height="9" rx="1"/></g><path d="M8.6 3h2.2l-.4 3.4" fill="none" stroke="#fff6c8" stroke-width="1.1" stroke-linecap="round"/></svg><span class="cups-tip" aria-hidden="true">2-time champion: 2024–25, 2025–26</span></button>
         <div class="panels">
           <h3 class="name">Chiang Mai Knockouts</h3>
           <p class="band">Scott Kalma</p>
-          <p class="bio"><span><b>Record:</b> 12-6</span><span><b>Place:</b> 3rd</span><span><b>Streak:</b> W7</span><span><b>Still to play:</b> Washington Generals, JAIGNER 69ers, Central District Cityboys</span></p>
+          <p class="bio"><span><b>Record:</b> 12-6</span><span><b>Place:</b> 3rd (2nd Apples)</span><span><b>Streak:</b> W7</span></p>
         </div>
         <p class="wk-score"><span class="wk-pts">87.1</span><span class="wk-label">Week 18</span></p>
         <div class="record">
           <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
           <table>
             <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
-            <tbody><tr><td>18</td><td class="opp">Maximum Penalty</td><td class="res w">W</td><td>87.1</td><td>61.2</td></tr></tbody>
-            <tfoot><tr><th colspan="2">Season totals</th><td>12-6</td><td>1,816.0</td><td>1,565.5</td></tr></tfoot>
+            <tbody><tr><td>1</td><td class="opp">Washington Generals</td><td class="res w">W</td><td>82.1</td><td>67.2</td></tr><tr><td>2</td><td class="opp">Liberate The Big Squid</td><td class="res w">W</td><td>111.2</td><td>102.3</td></tr><tr><td>3</td><td class="opp">The leafs if they were good</td><td class="res w">W</td><td>114.3</td><td>96.3</td></tr><tr><td>4</td><td class="opp">Danimals</td><td class="res l">L</td><td>97.5</td><td>100.2</td></tr><tr><td>5</td><td class="opp">Tapps Tiger Muskies</td><td class="res l">L</td><td>80.5</td><td>84.7</td></tr><tr><td>6</td><td class="opp">JAIGNER 69ers</td><td class="res l">L</td><td>66.7</td><td>92.8</td></tr><tr><td>7</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>116.0</td><td>61.8</td></tr><tr><td>8</td><td class="opp">Commish Campi</td><td class="res l">L</td><td>113.3</td><td>114.9</td></tr><tr><td>9</td><td class="opp">Tapps Tiger Muskies</td><td class="res w">W</td><td>117.0</td><td>82.7</td></tr><tr><td>10</td><td class="opp">Maximum Penalty</td><td class="res l">L</td><td>108.5</td><td>121.8</td></tr><tr><td>11</td><td class="opp">Liberate The Big Squid</td><td class="res l">L</td><td>96.1</td><td>123.5</td></tr><tr><td>12</td><td class="opp">The leafs if they were good</td><td class="res w">W</td><td>63.8</td><td>53.5</td></tr><tr><td>13</td><td class="opp">Danimals</td><td class="res w">W</td><td>109.2</td><td>98.6</td></tr><tr><td>14</td><td class="opp">Washington Generals</td><td class="res w">W</td><td>106.2</td><td>67.6</td></tr><tr><td>15</td><td class="opp">JAIGNER 69ers</td><td class="res w">W</td><td>133.0</td><td>119.5</td></tr><tr><td>16</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>108.5</td><td>68.9</td></tr><tr><td>17</td><td class="opp">Commish Campi</td><td class="res w">W</td><td>105.0</td><td>48.0</td></tr><tr><td>18</td><td class="opp">Maximum Penalty</td><td class="res w">W</td><td>87.1</td><td>61.2</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">12-6</span></td><td>1,816.0</td><td>1,565.5</td></tr></tfoot>
           </table>
           <div class="note"></div>
         </div>
@@ -230,18 +248,19 @@
       <article class="team" id="team-6">
         <div class="num-row"><span class="num">4</span></div>
         <div class="photo"><img class="logo " src="../../logos/a44a2aff861e.svg" alt="" loading="lazy"></div>
+        
         <div class="panels">
           <h3 class="name">JAIGNER 69ers</h3>
           <p class="band">Joe Aigner</p>
-          <p class="bio"><span><b>Record:</b> 12-6</span><span><b>Place:</b> 4th</span><span><b>Streak:</b> W3</span><span><b>Still to play:</b> The leafs if they were good, Chiang Mai Knockouts, Danimals</span></p>
+          <p class="bio"><span><b>Record:</b> 12-6</span><span><b>Place:</b> 4th (2nd Dudes)</span><span><b>Streak:</b> W3</span></p>
         </div>
         <p class="wk-score"><span class="wk-pts">77.1</span><span class="wk-label">Week 18</span></p>
         <div class="record">
           <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
           <table>
             <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
-            <tbody><tr><td>18</td><td class="opp">Tapps Tiger Muskies</td><td class="res w">W</td><td>77.1</td><td>42.0</td></tr></tbody>
-            <tfoot><tr><th colspan="2">Season totals</th><td>12-6</td><td>1,815.6</td><td>1,628.7</td></tr></tfoot>
+            <tbody><tr><td>1</td><td class="opp">Maximum Penalty</td><td class="res w">W</td><td>105.0</td><td>77.4</td></tr><tr><td>2</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>98.5</td><td>71.7</td></tr><tr><td>3</td><td class="opp">Washington Generals</td><td class="res l">L</td><td>54.4</td><td>99.9</td></tr><tr><td>4</td><td class="opp">Commish Campi</td><td class="res w">W</td><td>98.9</td><td>69.1</td></tr><tr><td>5</td><td class="opp">The leafs if they were good</td><td class="res l">L</td><td>105.3</td><td>112.2</td></tr><tr><td>6</td><td class="opp">Chiang Mai Knockouts</td><td class="res w">W</td><td>92.8</td><td>66.7</td></tr><tr><td>7</td><td class="opp">Danimals</td><td class="res w">W</td><td>116.2</td><td>97.8</td></tr><tr><td>8</td><td class="opp">Liberate The Big Squid</td><td class="res w">W</td><td>108.1</td><td>84.3</td></tr><tr><td>9</td><td class="opp">Maximum Penalty</td><td class="res l">L</td><td>115.7</td><td>133.0</td></tr><tr><td>10</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>96.9</td><td>83.0</td></tr><tr><td>11</td><td class="opp">Washington Generals</td><td class="res l">L</td><td>110.1</td><td>115.7</td></tr><tr><td>12</td><td class="opp">Commish Campi</td><td class="res l">L</td><td>72.4</td><td>73.1</td></tr><tr><td>13</td><td class="opp">Tapps Tiger Muskies</td><td class="res w">W</td><td>127.5</td><td>84.1</td></tr><tr><td>14</td><td class="opp">The leafs if they were good</td><td class="res w">W</td><td>107.2</td><td>97.0</td></tr><tr><td>15</td><td class="opp">Chiang Mai Knockouts</td><td class="res l">L</td><td>119.5</td><td>133.0</td></tr><tr><td>16</td><td class="opp">Danimals</td><td class="res w">W</td><td>105.0</td><td>99.1</td></tr><tr><td>17</td><td class="opp">Liberate The Big Squid</td><td class="res w">W</td><td>105.0</td><td>89.6</td></tr><tr><td>18</td><td class="opp">Tapps Tiger Muskies</td><td class="res w">W</td><td>77.1</td><td>42.0</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">12-6</span></td><td>1,815.6</td><td>1,628.7</td></tr></tfoot>
           </table>
           <div class="note"></div>
         </div>
@@ -249,18 +268,19 @@
       <article class="team" id="team-1">
         <div class="num-row"><span class="num">5</span></div>
         <div class="photo"><img class="logo " src="../../logos/a2a58021e11a.jpg" alt="" loading="lazy"></div>
+        <button class="cups" type="button" aria-label="Champion 2023–24"><svg viewBox="0 0 24 32" aria-hidden="true"><g fill="#f4c430" stroke="#7a5b00" stroke-width="1.2"><path d="M6.5 1.5h11l-1.2 5.2a4.4 4.4 0 0 1-8.6 0Z"/><rect x="10.3" y="9.6" width="3.4" height="2.6"/><rect x="8" y="12.2" width="8" height="4" rx=".6"/><rect x="6.4" y="16.2" width="11.2" height="5" rx=".6"/><rect x="4.8" y="21.2" width="14.4" height="9" rx="1"/></g><path d="M8.6 3h2.2l-.4 3.4" fill="none" stroke="#fff6c8" stroke-width="1.1" stroke-linecap="round"/></svg><span class="cups-tip" aria-hidden="true">Champion 2023–24</span></button>
         <div class="panels">
           <h3 class="name">Commish Campi</h3>
           <p class="band">David Campi</p>
-          <p class="bio"><span><b>Record:</b> 10-8</span><span><b>Place:</b> 5th</span><span><b>Streak:</b> W1</span><span><b>Still to play:</b> Liberate The Big Squid, Tapps Tiger Muskies, The leafs if they were good</span></p>
+          <p class="bio"><span><b>Record:</b> 10-8</span><span><b>Place:</b> 5th (3rd Dudes)</span><span><b>Streak:</b> W1</span></p>
         </div>
         <p class="wk-score"><span class="wk-pts">54.3</span><span class="wk-label">Week 18</span></p>
         <div class="record">
           <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
           <table>
             <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
-            <tbody><tr><td>18</td><td class="opp">Danimals</td><td class="res w">W</td><td>54.3</td><td>44.5</td></tr></tbody>
-            <tfoot><tr><th colspan="2">Season totals</th><td>10-8</td><td>1,636.3</td><td>1,712.4</td></tr></tfoot>
+            <tbody><tr><td>1</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>73.2</td><td>58.0</td></tr><tr><td>2</td><td class="opp">Washington Generals</td><td class="res w">W</td><td>99.6</td><td>71.5</td></tr><tr><td>3</td><td class="opp">Liberate The Big Squid</td><td class="res l">L</td><td>98.1</td><td>116.8</td></tr><tr><td>4</td><td class="opp">JAIGNER 69ers</td><td class="res l">L</td><td>69.1</td><td>98.9</td></tr><tr><td>5</td><td class="opp">Maximum Penalty</td><td class="res w">W</td><td>125.1</td><td>83.0</td></tr><tr><td>6</td><td class="opp">Tapps Tiger Muskies</td><td class="res l">L</td><td>112.0</td><td>122.6</td></tr><tr><td>7</td><td class="opp">The leafs if they were good</td><td class="res w">W</td><td>114.8</td><td>113.7</td></tr><tr><td>8</td><td class="opp">Chiang Mai Knockouts</td><td class="res w">W</td><td>114.9</td><td>113.3</td></tr><tr><td>9</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>85.2</td><td>82.0</td></tr><tr><td>10</td><td class="opp">Washington Generals</td><td class="res l">L</td><td>93.9</td><td>96.3</td></tr><tr><td>11</td><td class="opp">Danimals</td><td class="res w">W</td><td>105.5</td><td>76.9</td></tr><tr><td>12</td><td class="opp">JAIGNER 69ers</td><td class="res w">W</td><td>73.1</td><td>72.4</td></tr><tr><td>13</td><td class="opp">Maximum Penalty</td><td class="res l">L</td><td>114.8</td><td>123.2</td></tr><tr><td>14</td><td class="opp">Liberate The Big Squid</td><td class="res l">L</td><td>81.2</td><td>142.4</td></tr><tr><td>15</td><td class="opp">Tapps Tiger Muskies</td><td class="res l">L</td><td>69.1</td><td>97.3</td></tr><tr><td>16</td><td class="opp">The leafs if they were good</td><td class="res w">W</td><td>104.4</td><td>94.6</td></tr><tr><td>17</td><td class="opp">Chiang Mai Knockouts</td><td class="res l">L</td><td>48.0</td><td>105.0</td></tr><tr><td>18</td><td class="opp">Danimals</td><td class="res w">W</td><td>54.3</td><td>44.5</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">10-8</span></td><td>1,636.3</td><td>1,712.4</td></tr></tfoot>
           </table>
           <div class="note"></div>
         </div>
@@ -268,18 +288,19 @@
       <article class="team" id="team-5">
         <div class="num-row"><span class="num">6</span></div>
         <div class="photo"><img class="logo " src="../../logos/4d58aca191f9.jpg" alt="" loading="lazy"></div>
+        
         <div class="panels">
           <h3 class="name">The leafs if they were good</h3>
           <p class="band">Caden Crowe</p>
-          <p class="bio"><span><b>Record:</b> 9-9</span><span><b>Place:</b> 6th</span><span><b>Streak:</b> W2</span><span><b>Still to play:</b> JAIGNER 69ers, Central District Cityboys, Commish Campi</span></p>
+          <p class="bio"><span><b>Record:</b> 9-9</span><span><b>Place:</b> 6th (3rd Apples)</span><span><b>Streak:</b> W2</span></p>
         </div>
         <p class="wk-score"><span class="wk-pts">70.2</span><span class="wk-label">Week 18</span></p>
         <div class="record">
           <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
           <table>
             <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
-            <tbody><tr><td>18</td><td class="opp">Washington Generals</td><td class="res w">W</td><td>70.2</td><td>58.8</td></tr></tbody>
-            <tfoot><tr><th colspan="2">Season totals</th><td>9-9</td><td>1,633.1</td><td>1,586.0</td></tr></tfoot>
+            <tbody><tr><td>1</td><td class="opp">Danimals</td><td class="res w">W</td><td>84.9</td><td>53.6</td></tr><tr><td>2</td><td class="opp">Tapps Tiger Muskies</td><td class="res l">L</td><td>80.8</td><td>97.5</td></tr><tr><td>3</td><td class="opp">Chiang Mai Knockouts</td><td class="res l">L</td><td>96.3</td><td>114.3</td></tr><tr><td>4</td><td class="opp">Liberate The Big Squid</td><td class="res l">L</td><td>85.6</td><td>86.9</td></tr><tr><td>5</td><td class="opp">JAIGNER 69ers</td><td class="res w">W</td><td>112.2</td><td>105.3</td></tr><tr><td>6</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>85.0</td><td>63.7</td></tr><tr><td>7</td><td class="opp">Commish Campi</td><td class="res l">L</td><td>113.7</td><td>114.8</td></tr><tr><td>8</td><td class="opp">Maximum Penalty</td><td class="res l">L</td><td>82.8</td><td>99.1</td></tr><tr><td>9</td><td class="opp">Washington Generals</td><td class="res w">W</td><td>78.0</td><td>67.3</td></tr><tr><td>10</td><td class="opp">Danimals</td><td class="res w">W</td><td>91.1</td><td>75.5</td></tr><tr><td>11</td><td class="opp">Tapps Tiger Muskies</td><td class="res w">W</td><td>95.6</td><td>94.8</td></tr><tr><td>12</td><td class="opp">Chiang Mai Knockouts</td><td class="res l">L</td><td>53.5</td><td>63.8</td></tr><tr><td>13</td><td class="opp">Liberate The Big Squid</td><td class="res l">L</td><td>102.6</td><td>104.1</td></tr><tr><td>14</td><td class="opp">JAIGNER 69ers</td><td class="res l">L</td><td>97.0</td><td>107.2</td></tr><tr><td>15</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>108.7</td><td>92.2</td></tr><tr><td>16</td><td class="opp">Commish Campi</td><td class="res l">L</td><td>94.6</td><td>104.4</td></tr><tr><td>17</td><td class="opp">Maximum Penalty</td><td class="res w">W</td><td>100.5</td><td>82.7</td></tr><tr><td>18</td><td class="opp">Washington Generals</td><td class="res w">W</td><td>70.2</td><td>58.8</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">9-9</span></td><td>1,633.1</td><td>1,586.0</td></tr></tfoot>
           </table>
           <div class="note"></div>
         </div>
@@ -287,18 +308,19 @@
       <article class="team" id="team-10">
         <div class="num-row"><span class="num">7</span></div>
         <div class="photo"><img class="logo " src="../../logos/6d9e0302cda7.svg" alt="" loading="lazy"></div>
+        
         <div class="panels">
           <h3 class="name">Washington Generals</h3>
           <p class="band">Alex Tuvin</p>
-          <p class="bio"><span><b>Record:</b> 8-10</span><span><b>Place:</b> 7th</span><span><b>Streak:</b> L1</span><span><b>Still to play:</b> Chiang Mai Knockouts, Danimals, Liberate The Big Squid</span></p>
+          <p class="bio"><span><b>Record:</b> 8-10</span><span><b>Place:</b> 7th (4th Dudes)</span><span><b>Streak:</b> L1</span></p>
         </div>
         <p class="wk-score"><span class="wk-pts">58.8</span><span class="wk-label">Week 18</span></p>
         <div class="record">
           <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
           <table>
             <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
-            <tbody><tr><td>18</td><td class="opp">The leafs if they were good</td><td class="res l">L</td><td>58.8</td><td>70.2</td></tr></tbody>
-            <tfoot><tr><th colspan="2">Season totals</th><td>8-10</td><td>1,574.4</td><td>1,602.7</td></tr></tfoot>
+            <tbody><tr><td>1</td><td class="opp">Chiang Mai Knockouts</td><td class="res l">L</td><td>67.2</td><td>82.1</td></tr><tr><td>2</td><td class="opp">Commish Campi</td><td class="res l">L</td><td>71.5</td><td>99.6</td></tr><tr><td>3</td><td class="opp">JAIGNER 69ers</td><td class="res w">W</td><td>99.9</td><td>54.4</td></tr><tr><td>4</td><td class="opp">Maximum Penalty</td><td class="res l">L</td><td>90.5</td><td>102.0</td></tr><tr><td>5</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>103.2</td><td>98.4</td></tr><tr><td>6</td><td class="opp">Danimals</td><td class="res l">L</td><td>86.4</td><td>92.8</td></tr><tr><td>7</td><td class="opp">Liberate The Big Squid</td><td class="res l">L</td><td>85.1</td><td>91.7</td></tr><tr><td>8</td><td class="opp">Tapps Tiger Muskies</td><td class="res w">W</td><td>105.2</td><td>78.5</td></tr><tr><td>9</td><td class="opp">The leafs if they were good</td><td class="res l">L</td><td>67.3</td><td>78.0</td></tr><tr><td>10</td><td class="opp">Commish Campi</td><td class="res w">W</td><td>96.3</td><td>93.9</td></tr><tr><td>11</td><td class="opp">JAIGNER 69ers</td><td class="res w">W</td><td>115.7</td><td>110.1</td></tr><tr><td>12</td><td class="opp">Maximum Penalty</td><td class="res w">W</td><td>57.8</td><td>40.9</td></tr><tr><td>13</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>109.9</td><td>72.5</td></tr><tr><td>14</td><td class="opp">Chiang Mai Knockouts</td><td class="res l">L</td><td>67.6</td><td>106.2</td></tr><tr><td>15</td><td class="opp">Danimals</td><td class="res l">L</td><td>66.4</td><td>117.1</td></tr><tr><td>16</td><td class="opp">Liberate The Big Squid</td><td class="res l">L</td><td>124.3</td><td>127.1</td></tr><tr><td>17</td><td class="opp">Tapps Tiger Muskies</td><td class="res w">W</td><td>101.3</td><td>87.2</td></tr><tr><td>18</td><td class="opp">The leafs if they were good</td><td class="res l">L</td><td>58.8</td><td>70.2</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">8-10</span></td><td>1,574.4</td><td>1,602.7</td></tr></tfoot>
           </table>
           <div class="note"></div>
         </div>
@@ -306,18 +328,19 @@
       <article class="team" id="team-9">
         <div class="num-row"><span class="num">8</span></div>
         <div class="photo"><img class="logo " src="../../logos/c43be95eeef3.svg" alt="" loading="lazy"></div>
+        <button class="cups" type="button" aria-label="Champion 2022–23"><svg viewBox="0 0 24 32" aria-hidden="true"><g fill="#f4c430" stroke="#7a5b00" stroke-width="1.2"><path d="M6.5 1.5h11l-1.2 5.2a4.4 4.4 0 0 1-8.6 0Z"/><rect x="10.3" y="9.6" width="3.4" height="2.6"/><rect x="8" y="12.2" width="8" height="4" rx=".6"/><rect x="6.4" y="16.2" width="11.2" height="5" rx=".6"/><rect x="4.8" y="21.2" width="14.4" height="9" rx="1"/></g><path d="M8.6 3h2.2l-.4 3.4" fill="none" stroke="#fff6c8" stroke-width="1.1" stroke-linecap="round"/></svg><span class="cups-tip" aria-hidden="true">Champion 2022–23</span></button>
         <div class="panels">
           <h3 class="name">Danimals</h3>
           <p class="band">Dan Campi</p>
-          <p class="bio"><span><b>Record:</b> 7-11</span><span><b>Place:</b> 8th</span><span><b>Streak:</b> L1</span><span><b>Still to play:</b> Maximum Penalty, Washington Generals, JAIGNER 69ers</span></p>
+          <p class="bio"><span><b>Record:</b> 7-11</span><span><b>Place:</b> 8th (4th Apples)</span><span><b>Streak:</b> L1</span></p>
         </div>
         <p class="wk-score"><span class="wk-pts">44.5</span><span class="wk-label">Week 18</span></p>
         <div class="record">
           <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
           <table>
             <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
-            <tbody><tr><td>18</td><td class="opp">Commish Campi</td><td class="res l">L</td><td>44.5</td><td>54.3</td></tr></tbody>
-            <tfoot><tr><th colspan="2">Season totals</th><td>7-11</td><td>1,598.9</td><td>1,691.0</td></tr></tfoot>
+            <tbody><tr><td>1</td><td class="opp">The leafs if they were good</td><td class="res l">L</td><td>53.6</td><td>84.9</td></tr><tr><td>2</td><td class="opp">Maximum Penalty</td><td class="res l">L</td><td>91.9</td><td>131.3</td></tr><tr><td>3</td><td class="opp">Tapps Tiger Muskies</td><td class="res l">L</td><td>86.6</td><td>121.9</td></tr><tr><td>4</td><td class="opp">Chiang Mai Knockouts</td><td class="res w">W</td><td>100.2</td><td>97.5</td></tr><tr><td>5</td><td class="opp">Liberate The Big Squid</td><td class="res l">L</td><td>64.4</td><td>94.0</td></tr><tr><td>6</td><td class="opp">Washington Generals</td><td class="res w">W</td><td>92.8</td><td>86.4</td></tr><tr><td>7</td><td class="opp">JAIGNER 69ers</td><td class="res l">L</td><td>97.8</td><td>116.2</td></tr><tr><td>8</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>94.9</td><td>84.5</td></tr><tr><td>9</td><td class="opp">Liberate The Big Squid</td><td class="res w">W</td><td>122.9</td><td>91.2</td></tr><tr><td>10</td><td class="opp">The leafs if they were good</td><td class="res l">L</td><td>75.5</td><td>91.1</td></tr><tr><td>11</td><td class="opp">Commish Campi</td><td class="res l">L</td><td>76.9</td><td>105.5</td></tr><tr><td>12</td><td class="opp">Tapps Tiger Muskies</td><td class="res w">W</td><td>70.3</td><td>59.1</td></tr><tr><td>13</td><td class="opp">Chiang Mai Knockouts</td><td class="res l">L</td><td>98.6</td><td>109.2</td></tr><tr><td>14</td><td class="opp">Maximum Penalty</td><td class="res l">L</td><td>108.4</td><td>111.3</td></tr><tr><td>15</td><td class="opp">Washington Generals</td><td class="res w">W</td><td>117.1</td><td>66.4</td></tr><tr><td>16</td><td class="opp">JAIGNER 69ers</td><td class="res l">L</td><td>99.1</td><td>105.0</td></tr><tr><td>17</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>103.4</td><td>81.2</td></tr><tr><td>18</td><td class="opp">Commish Campi</td><td class="res l">L</td><td>44.5</td><td>54.3</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">7-11</span></td><td>1,598.9</td><td>1,691.0</td></tr></tfoot>
           </table>
           <div class="note"></div>
         </div>
@@ -325,18 +348,19 @@
       <article class="team" id="team-3">
         <div class="num-row"><span class="num">9</span></div>
         <div class="photo"><img class="logo " src="../../logos/fc145f8cdeba.jpg" alt="" loading="lazy"></div>
+        
         <div class="panels">
           <h3 class="name">Tapps Tiger Muskies</h3>
           <p class="band">Kenton Barker</p>
-          <p class="bio"><span><b>Record:</b> 7-11</span><span><b>Place:</b> 9th</span><span><b>Streak:</b> L3</span><span><b>Still to play:</b> Central District Cityboys, Commish Campi, Maximum Penalty</span></p>
+          <p class="bio"><span><b>Record:</b> 7-11</span><span><b>Place:</b> 9th (5th Apples)</span><span><b>Streak:</b> L3</span></p>
         </div>
         <p class="wk-score"><span class="wk-pts">42.0</span><span class="wk-label">Week 18</span></p>
         <div class="record">
           <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
           <table>
             <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
-            <tbody><tr><td>18</td><td class="opp">JAIGNER 69ers</td><td class="res l">L</td><td>42.0</td><td>77.1</td></tr></tbody>
-            <tfoot><tr><th colspan="2">Season totals</th><td>7-11</td><td>1,587.5</td><td>1,684.0</td></tr></tfoot>
+            <tbody><tr><td>1</td><td class="opp">Liberate The Big Squid</td><td class="res l">L</td><td>48.0</td><td>83.2</td></tr><tr><td>2</td><td class="opp">The leafs if they were good</td><td class="res w">W</td><td>97.5</td><td>80.8</td></tr><tr><td>3</td><td class="opp">Danimals</td><td class="res w">W</td><td>121.9</td><td>86.6</td></tr><tr><td>4</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>95.8</td><td>87.0</td></tr><tr><td>5</td><td class="opp">Chiang Mai Knockouts</td><td class="res w">W</td><td>84.7</td><td>80.5</td></tr><tr><td>6</td><td class="opp">Commish Campi</td><td class="res w">W</td><td>122.6</td><td>112.0</td></tr><tr><td>7</td><td class="opp">Maximum Penalty</td><td class="res l">L</td><td>106.8</td><td>119.7</td></tr><tr><td>8</td><td class="opp">Washington Generals</td><td class="res l">L</td><td>78.5</td><td>105.2</td></tr><tr><td>9</td><td class="opp">Chiang Mai Knockouts</td><td class="res l">L</td><td>82.7</td><td>117.0</td></tr><tr><td>10</td><td class="opp">Liberate The Big Squid</td><td class="res l">L</td><td>79.7</td><td>100.1</td></tr><tr><td>11</td><td class="opp">The leafs if they were good</td><td class="res l">L</td><td>94.8</td><td>95.6</td></tr><tr><td>12</td><td class="opp">Danimals</td><td class="res l">L</td><td>59.1</td><td>70.3</td></tr><tr><td>13</td><td class="opp">JAIGNER 69ers</td><td class="res l">L</td><td>84.1</td><td>127.5</td></tr><tr><td>14</td><td class="opp">Central District Cityboys</td><td class="res w">W</td><td>101.7</td><td>65.6</td></tr><tr><td>15</td><td class="opp">Commish Campi</td><td class="res w">W</td><td>97.3</td><td>69.1</td></tr><tr><td>16</td><td class="opp">Maximum Penalty</td><td class="res l">L</td><td>103.1</td><td>105.4</td></tr><tr><td>17</td><td class="opp">Washington Generals</td><td class="res l">L</td><td>87.2</td><td>101.3</td></tr><tr><td>18</td><td class="opp">JAIGNER 69ers</td><td class="res l">L</td><td>42.0</td><td>77.1</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">7-11</span></td><td>1,587.5</td><td>1,684.0</td></tr></tfoot>
           </table>
           <div class="note"></div>
         </div>
@@ -344,18 +368,19 @@
       <article class="team" id="team-8">
         <div class="num-row"><span class="num">10</span></div>
         <div class="photo"><img class="logo " src="../../logos/6364aecf0f2e.jpg" alt="" loading="lazy"></div>
+        
         <div class="panels">
           <h3 class="name">Central District Cityboys</h3>
           <p class="band">Andrew Doron</p>
-          <p class="bio"><span><b>Record:</b> 0-18</span><span><b>Place:</b> 10th</span><span><b>Streak:</b> L18</span><span><b>Still to play:</b> Tapps Tiger Muskies, The leafs if they were good, Chiang Mai Knockouts</span></p>
+          <p class="bio"><span><b>Record:</b> 0-18</span><span><b>Place:</b> 10th (5th Dudes)</span><span><b>Streak:</b> L18</span></p>
         </div>
         <p class="wk-score"><span class="wk-pts">58.7</span><span class="wk-label">Week 18</span></p>
         <div class="record">
           <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
           <table>
             <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
-            <tbody><tr><td>18</td><td class="opp">Liberate The Big Squid</td><td class="res l">L</td><td>58.7</td><td>89.9</td></tr></tbody>
-            <tfoot><tr><th colspan="2">Season totals</th><td>0-18</td><td>1,363.5</td><td>1,767.2</td></tr></tfoot>
+            <tbody><tr><td>1</td><td class="opp">Commish Campi</td><td class="res l">L</td><td>58.0</td><td>73.2</td></tr><tr><td>2</td><td class="opp">JAIGNER 69ers</td><td class="res l">L</td><td>71.7</td><td>98.5</td></tr><tr><td>3</td><td class="opp">Maximum Penalty</td><td class="res l">L</td><td>94.0</td><td>102.5</td></tr><tr><td>4</td><td class="opp">Tapps Tiger Muskies</td><td class="res l">L</td><td>87.0</td><td>95.8</td></tr><tr><td>5</td><td class="opp">Washington Generals</td><td class="res l">L</td><td>98.4</td><td>103.2</td></tr><tr><td>6</td><td class="opp">The leafs if they were good</td><td class="res l">L</td><td>63.7</td><td>85.0</td></tr><tr><td>7</td><td class="opp">Chiang Mai Knockouts</td><td class="res l">L</td><td>61.8</td><td>116.0</td></tr><tr><td>8</td><td class="opp">Danimals</td><td class="res l">L</td><td>84.5</td><td>94.9</td></tr><tr><td>9</td><td class="opp">Commish Campi</td><td class="res l">L</td><td>82.0</td><td>85.2</td></tr><tr><td>10</td><td class="opp">JAIGNER 69ers</td><td class="res l">L</td><td>83.0</td><td>96.9</td></tr><tr><td>11</td><td class="opp">Maximum Penalty</td><td class="res l">L</td><td>83.7</td><td>135.8</td></tr><tr><td>12</td><td class="opp">Liberate The Big Squid</td><td class="res l">L</td><td>56.6</td><td>58.1</td></tr><tr><td>13</td><td class="opp">Washington Generals</td><td class="res l">L</td><td>72.5</td><td>109.9</td></tr><tr><td>14</td><td class="opp">Tapps Tiger Muskies</td><td class="res l">L</td><td>65.6</td><td>101.7</td></tr><tr><td>15</td><td class="opp">The leafs if they were good</td><td class="res l">L</td><td>92.2</td><td>108.7</td></tr><tr><td>16</td><td class="opp">Chiang Mai Knockouts</td><td class="res l">L</td><td>68.9</td><td>108.5</td></tr><tr><td>17</td><td class="opp">Danimals</td><td class="res l">L</td><td>81.2</td><td>103.4</td></tr><tr><td>18</td><td class="opp">Liberate The Big Squid</td><td class="res l">L</td><td>58.7</td><td>89.9</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">0-18</span></td><td>1,363.5</td><td>1,767.2</td></tr></tfoot>
           </table>
           <div class="note"></div>
         </div>
@@ -364,5 +389,33 @@
 
   <footer><p>Stats from ESPN through Sunday, Feb 22. Rankings are the commissioner&#x27;s opinion and don&#x27;t change the standings.</p></footer>
 </main>
+<style>
+  /* Same white card in every style, so the navy and green brand reads on dark pages too. */
+  .built-by { box-sizing: border-box; width: calc(100% - 32px); margin: 28px auto calc(24px + env(safe-area-inset-bottom, 0px)); max-width: 420px; background: #fff; color: #1d2a3a; border-radius: 14px; padding: 22px 20px 20px; display: grid; justify-items: center; gap: 14px; text-align: center; font: 400 15px/1.45 -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif; box-shadow: 0 1px 3px rgba(0, 0, 0, .18); }
+  .built-by .by { margin: 0; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #6b7684; }
+  .built-by .mark { display: grid; justify-items: center; gap: 10px; text-decoration: none; border-radius: 6px; }
+  .built-by .mark:focus-visible { outline: 2px solid #1f6b3a; outline-offset: 4px; }
+  .built-by .folder { height: 56px; width: auto; display: block; }
+  .built-by .word { height: 22px; width: auto; display: block; }
+  .built-by .pitch { margin: 0; max-width: 30ch; font-size: 16px; font-weight: 500; color: #1d2a3a; }
+  .built-by .contact { margin: 0; padding: 12px 0 0; list-style: none; border-top: 1px solid #e3e6ea; width: 100%; display: grid; gap: 6px; }
+  .built-by .contact a { color: #1f6b3a; font-weight: 600; text-decoration: none; }
+  .built-by .contact a:hover { text-decoration: underline; }
+</style>
+<aside class="built-by" aria-label="Built by Condition Works">
+  <p class="by">Built by</p>
+  <a class="mark" href="https://www.conditionworks.ai" aria-label="Condition Works">
+    <img class="folder" src="../../brand/logo-folder.png" alt="" width="156" height="144">
+    <img class="word" src="../../brand/logo-wordmark.png" alt="Condition Works" width="450" height="48">
+  </a>
+  <p class="pitch">Curious how AI applies to your work specifically? Let’s chat.</p>
+  <ul class="contact">
+    <li><a href="mailto:david@conditionworks.ai">david@conditionworks.ai</a></li>
+    <li><a href="tel:+14257368851">425-736-8851</a></li>
+    <li><a href="https://www.conditionworks.ai">conditionworks.ai</a></li>
+    <li><a href="https://cal.com/conditionworks/introduction-meeting?ref=power-rankings">Book an intro call</a></li>
+  </ul>
+</aside>
+
 </body>
 </html>

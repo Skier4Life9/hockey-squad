@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Playoff Push Power Rankings · Hockey Squad</title>
+<title>Hockey Squad Power Rankings</title>
 <meta name="robots" content="noindex, nofollow">
-<meta property="og:title" content="Hockey Squad Playoff Push Power Rankings">
+<meta property="og:title" content="Hockey Squad Power Rankings">
 <meta property="og:description" content="1. Maximum Penalty · 2. Chiang Mai Knockouts · 3. Liberate The Big Squid">
 <meta property="og:type" content="article">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,6 +59,7 @@
   .week-line { margin: 0; font: 700 15px/1.3 var(--label); letter-spacing: .12em; text-transform: uppercase; color: var(--red); text-shadow: var(--glow-red); font-variant-numeric: tabular-nums; }
   .intro { display: grid; gap: 10px; margin-top: 4px; }
   .intro p { margin: 0; color: var(--soft); max-width: 62ch; }
+  .intro:empty { display: none; }
   .sample { margin: 0 0 4px; padding: 8px 12px; border: 1px dashed var(--muted); border-radius: 6px; font-size: 14px; color: var(--muted); }
 
   h2.section { margin: 0 0 12px; font: 700 20px/1 var(--label); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
@@ -119,11 +120,51 @@
 <body>
 <main class="wrap">
   <header class="masthead">
-    <p class="sample">Sample page built from last season's Week 19. The order, tiers and notes are placeholders for yours; every number comes from ESPN.</p>
     <p class="eyebrow">Hockey Squad · 2025–26 season</p>
-    <h1>Playoff Push Power Rankings</h1>
+    <h1>Hockey Squad Power Rankings</h1>
     <p class="week-line">Week 19 of 21 · Feb 23 – Mar 1, 2026</p>
-    <div class="intro"><p>Two weeks left in the regular season and six playoff spots up for grabs. Let's see where everyone stands.</p></div>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Libre+Caslon+Text:wght@700&family=Mrs+Saint+Delafield&display=swap">
+<style>
+  /* The commissioner's memo: the same sheet of paper in every style. */
+  .memo { position: relative; overflow: hidden; margin: 10px 0 0; padding: 20px 18px 18px; background: #fbf8ef; color: #1c1c1c; border-radius: 3px; box-shadow: 0 1px 2px rgba(0, 0, 0, .25), 0 6px 18px rgba(0, 0, 0, .18); font: 400 15px/1.55 "Courier Prime", "Courier New", monospace; text-align: left; letter-spacing: 0; text-transform: none; }
+  .memo-head { display: flex; align-items: center; gap: 12px; padding-bottom: 12px; border-bottom: 3px double #1c1c1c; }
+  .memo-head img { width: 40px; height: auto; flex: none; display: block; }
+  .memo-org { margin: 0; font: 700 17px/1.15 "Libre Caslon Text", Georgia, serif; letter-spacing: .04em; text-transform: uppercase; color: #12233b; }
+  .memo-office { margin: 2px 0 0; font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; color: #5b5b5b; }
+  .memo-title { margin: 14px 0 10px; font: 700 15px/1 "Courier Prime", monospace; letter-spacing: .32em; text-transform: uppercase; color: #1c1c1c; text-shadow: none; }
+  .memo-fields { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; padding-bottom: 12px; border-bottom: 1px solid #1c1c1c; }
+  .memo-fields dt { font-weight: 700; }
+  .memo-fields dd { margin: 0; }
+  .memo-body { padding-top: 12px; display: grid; gap: 10px; }
+  .memo-body p { margin: 0; }
+  .memo-sign { margin: 14px 0 0; display: grid; justify-items: start; }
+  .memo-sign .sig { font: 400 40px/1 "Mrs Saint Delafield", cursive; color: #1d3a8a; margin: 0 0 -4px 6px; }
+  .memo-sign .who { white-space: nowrap; font-size: 13px; border-top: 1px solid #1c1c1c; padding-top: 2px; }
+  .memo-stamp { position: absolute; top: 74px; right: 10px; transform: rotate(-14deg); padding: 3px 10px; border: 3px solid rgba(178, 34, 34, .72); border-radius: 4px; color: rgba(178, 34, 34, .72); font: 700 20px/1.1 "Courier Prime", monospace; letter-spacing: .14em; text-transform: uppercase; pointer-events: none; }
+  .memo-note { margin: 14px 0 0; padding-top: 8px; border-top: 1px dashed #9a958a; font-size: 12px; line-height: 1.4; color: #6b675e; }
+</style>
+<article class="memo" aria-label="Memo from the commissioner">
+  <div class="memo-head">
+    <img src="../../brand/nhl-shield.svg" alt="" width="40" height="45">
+    <div>
+      <p class="memo-org">Hockey Squad</p>
+      <p class="memo-office">Office of the Commissioner</p>
+    </div>
+  </div>
+  <p class="memo-title">Memorandum</p>
+  <dl class="memo-fields">
+    <dt>TO:</dt><dd>All Franchise Owners</dd>
+    <dt>FROM:</dt><dd>The Commissioner</dd>
+    <dt>DATE:</dt><dd>Monday, March 2, 2026</dd>
+    <dt>RE:</dt><dd>Week 19 Proceedings</dd>
+  </dl>
+  <div class="memo-body"><p>WHEREAS the Week 19 matchup period, running Monday, February 23 through Sunday, March 1, has concluded, and the results thereof have been duly certified by ESPN, the Office of the Commissioner hereby enters the following into the record.</p><p><strong>Item 1.</strong> Maximum Penalty did knowingly and with malice aforethought deposit 98.9 points upon the Danimals, constituting the highest score of the period. The Danimals, as the party of the second part, tendered 47.8 points, which the League accepts without further comment.</p><p><strong>Item 2.</strong> The Central District Cityboys, having lost each of their first eighteen (18) contests, are hereby recognized as the winners of a regular-season game, 75.6 to 69.5, over the Tapps Tiger Muskies. The Muskies are advised that this matter is now a permanent part of their file.</p><p><strong>Item 3.</strong> The Commissioner defeated Liberate The Big Squid 97.4 to 87.6. The Commissioner wishes to state, for the avoidance of doubt, that this outcome had no bearing whatsoever on the rankings below.</p><p>With two (2) weeks remaining and six (6) playoff berths outstanding, all franchise owners are reminded that lineups are to be set in good faith. So ordered.</p></div>
+  <p class="memo-sign"><span class="sig">D. Campi</span><span class="who">Commissioner, Hockey Squad</span></p>
+  <span class="memo-stamp" aria-hidden="true">Sample</span>
+  <p class="memo-note">Sample page built from last season's Week 19. The order, tiers and notes are placeholders for yours; every number comes from ESPN.</p>
+</article>
+
+    <div class="intro"></div>
   </header>
 
   <section aria-labelledby="week-head">
@@ -133,101 +174,129 @@
   </section>
 
   <section aria-labelledby="rank-head">
-    <h2 class="section" id="rank-head">Power Rankings</h2>
+    <h2 class="section" id="rank-head">Current Power Rankings</h2>
     <section class="tier-group tier-1"><h2 class="tier"><span>Cup favorites</span></h2>
       <article class="team" id="team-4">
         <div class="rank"><span class="num">1</span><span class="move up" title="Up 1">▲1</span></div>
         <div class="body">
           <header class="who"><img class="logo " src="../../logos/1ffafe70ed89.svg" alt="" loading="lazy"><div><h3>Maximum Penalty</h3>
-            <p class="owner">Danny Degginger · <span class="rec">13-6</span> · 1st place</p></div></header>
+            <p class="owner">Danny Degginger · <span class="rec">13-6</span> · 1st (1st Dudes)</p></div></header>
           <div class="note"><p>Dropped 98.9 on the Danimals, the top score of the week, and leads the league in points for. The Squid and the Muskies stand between Dan and a division title.</p></div>
-          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl w">W</b> 98.9–47.8 vs Danimals</dd></div><div><dt>Points for</dt><dd>1,934.4 <span class="dim">(1st)</span></dd></div><div><dt>Streak</dt><dd>W1</dd></div><div><dt>Last week</dt><dd>#2</dd></div><div><dt>Still to play</dt><dd>Liberate The Big Squid, Tapps Tiger Muskies</dd></div></dl>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl w">W</b> 98.9–47.8 vs Danimals</dd></div><div><dt>Points for</dt><dd>1,934.4 <span class="dim">(1st)</span></dd></div><div><dt>Streak</dt><dd>W1</dd></div><div><dt>Last week</dt><dd>#2</dd></div></dl>
         </div>
       </article>
       <article class="team" id="team-7">
         <div class="rank"><span class="num">2</span><span class="move up" title="Up 1">▲1</span></div>
         <div class="body">
           <header class="who"><img class="logo " src="../../logos/b1f3f3063a09.svg" alt="" loading="lazy"><div><h3>Chiang Mai Knockouts</h3>
-            <p class="owner">Scott Kalma · <span class="rec">12-7</span> · 4th place</p></div></header>
+            <p class="owner">Scott Kalma · <span class="rec">12-7</span> · 4th (2nd Apples)</p></div></header>
           <div class="note"><p>A seven-game win streak ended against the Generals, but only Maximum Penalty has scored more this season.</p></div>
-          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl l">L</b> 78.1–95.6 vs Washington Generals</dd></div><div><dt>Points for</dt><dd>1,894.1 <span class="dim">(2nd)</span></dd></div><div><dt>Streak</dt><dd>L1</dd></div><div><dt>Last week</dt><dd>#3</dd></div><div><dt>Still to play</dt><dd>JAIGNER 69ers, Central District Cityboys</dd></div></dl>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl l">L</b> 78.1–95.6 vs Washington Generals</dd></div><div><dt>Points for</dt><dd>1,894.1 <span class="dim">(2nd)</span></dd></div><div><dt>Streak</dt><dd>L1</dd></div><div><dt>Last week</dt><dd>#3</dd></div></dl>
         </div>
       </article>
       <article class="team" id="team-2">
         <div class="rank"><span class="num">3</span><span class="move down" title="Down 2">▼2</span></div>
         <div class="body">
           <header class="who"><img class="logo " src="../../logos/3cf3c8f5cf35.jpg" alt="" loading="lazy"><div><h3>Liberate The Big Squid</h3>
-            <p class="owner">David Degginger · <span class="rec">13-6</span> · 2nd place</p></div></header>
+            <p class="owner">David Degginger · <span class="rec">13-6</span> · 2nd (1st Apples)</p></div></header>
           <div class="note"><p>Lost to the Commish by ten, and Matt Boldy did most of the damage. Still leads the Apples, with Maximum Penalty up next.</p></div>
-          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl l">L</b> 87.6–97.4 vs Commish Campi</dd></div><div><dt>Points for</dt><dd>1,883.6 <span class="dim">(3rd)</span></dd></div><div><dt>Streak</dt><dd>L1</dd></div><div><dt>Last week</dt><dd>#1</dd></div><div><dt>Still to play</dt><dd>Maximum Penalty, Washington Generals</dd></div></dl>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl l">L</b> 87.6–97.4 vs Commish Campi</dd></div><div><dt>Points for</dt><dd>1,883.6 <span class="dim">(3rd)</span></dd></div><div><dt>Streak</dt><dd>L1</dd></div><div><dt>Last week</dt><dd>#1</dd></div></dl>
         </div>
       </article></section><section class="tier-group tier-2"><h2 class="tier"><span>In the hunt</span></h2>
       <article class="team" id="team-6">
         <div class="rank"><span class="num">4</span><span class="move same" title="No change">–</span></div>
         <div class="body">
           <header class="who"><img class="logo " src="../../logos/a44a2aff861e.svg" alt="" loading="lazy"><div><h3>JAIGNER 69ers</h3>
-            <p class="owner">Joe Aigner · <span class="rec">13-6</span> · 3rd place</p></div></header>
+            <p class="owner">Joe Aigner · <span class="rec">13-6</span> · 3rd (2nd Dudes)</p></div></header>
           <div class="note"><p>Four straight wins, the last one by five points over the Leafs. Chiang Mai next week could be a playoff preview.</p></div>
-          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl w">W</b> 65.8–60.7 vs The leafs if they were good</dd></div><div><dt>Points for</dt><dd>1,881.4 <span class="dim">(4th)</span></dd></div><div><dt>Streak</dt><dd>W4</dd></div><div><dt>Last week</dt><dd>#4</dd></div><div><dt>Still to play</dt><dd>Chiang Mai Knockouts, Danimals</dd></div></dl>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl w">W</b> 65.8–60.7 vs The leafs if they were good</dd></div><div><dt>Points for</dt><dd>1,881.4 <span class="dim">(4th)</span></dd></div><div><dt>Streak</dt><dd>W4</dd></div><div><dt>Last week</dt><dd>#4</dd></div></dl>
         </div>
       </article>
       <article class="team" id="team-1">
         <div class="rank"><span class="num">5</span><span class="move same" title="No change">–</span></div>
         <div class="body">
           <header class="who"><img class="logo " src="../../logos/a2a58021e11a.jpg" alt="" loading="lazy"><div><h3>Commish Campi</h3>
-            <p class="owner">David Campi · <span class="rec">11-8</span> · 5th place</p></div></header>
+            <p class="owner">David Campi · <span class="rec">11-8</span> · 5th (3rd Dudes)</p></div></header>
           <div class="note"><p>Beat the Squid 97.4 to 87.6 behind the player of the week. Two wins in a row with the Muskies and the Leafs left.</p></div>
-          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl w">W</b> 97.4–87.6 vs Liberate The Big Squid</dd></div><div><dt>Points for</dt><dd>1,733.7 <span class="dim">(5th)</span></dd></div><div><dt>Streak</dt><dd>W2</dd></div><div><dt>Last week</dt><dd>#5</dd></div><div><dt>Still to play</dt><dd>Tapps Tiger Muskies, The leafs if they were good</dd></div></dl>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl w">W</b> 97.4–87.6 vs Liberate The Big Squid</dd></div><div><dt>Points for</dt><dd>1,733.7 <span class="dim">(5th)</span></dd></div><div><dt>Streak</dt><dd>W2</dd></div><div><dt>Last week</dt><dd>#5</dd></div></dl>
         </div>
       </article></section><section class="tier-group tier-3"><h2 class="tier"><span>On the bubble</span></h2>
       <article class="team" id="team-10">
         <div class="rank"><span class="num">6</span><span class="move up" title="Up 1">▲1</span></div>
         <div class="body">
           <header class="who"><img class="logo " src="../../logos/6d9e0302cda7.svg" alt="" loading="lazy"><div><h3>Washington Generals</h3>
-            <p class="owner">Alex Tuvin · <span class="rec">9-10</span> · 7th place</p></div></header>
+            <p class="owner">Alex Tuvin · <span class="rec">9-10</span> · 7th (4th Dudes)</p></div></header>
           <div class="note"><p>Knocked off Chiang Mai with 95.6, the third-best score of the week. One game under .500 with the Danimals and the Squid left.</p></div>
-          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl w">W</b> 95.6–78.1 vs Chiang Mai Knockouts</dd></div><div><dt>Points for</dt><dd>1,670.0 <span class="dim">(7th)</span></dd></div><div><dt>Streak</dt><dd>W1</dd></div><div><dt>Last week</dt><dd>#7</dd></div><div><dt>Still to play</dt><dd>Danimals, Liberate The Big Squid</dd></div></dl>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl w">W</b> 95.6–78.1 vs Chiang Mai Knockouts</dd></div><div><dt>Points for</dt><dd>1,670.0 <span class="dim">(7th)</span></dd></div><div><dt>Streak</dt><dd>W1</dd></div><div><dt>Last week</dt><dd>#7</dd></div></dl>
         </div>
       </article>
       <article class="team" id="team-5">
         <div class="rank"><span class="num">7</span><span class="move down" title="Down 1">▼1</span></div>
         <div class="body">
           <header class="who"><img class="logo " src="../../logos/4d58aca191f9.jpg" alt="" loading="lazy"><div><h3>The leafs if they were good</h3>
-            <p class="owner">Caden Crowe · <span class="rec">9-10</span> · 6th place</p></div></header>
+            <p class="owner">Caden Crowe · <span class="rec">9-10</span> · 6th (3rd Apples)</p></div></header>
           <div class="note"><p>Lost by five to the 69ers and now share a 9-10 record with the Generals. The Cityboys and the Commish are left.</p></div>
-          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl l">L</b> 60.7–65.8 vs JAIGNER 69ers</dd></div><div><dt>Points for</dt><dd>1,693.8 <span class="dim">(6th)</span></dd></div><div><dt>Streak</dt><dd>L1</dd></div><div><dt>Last week</dt><dd>#6</dd></div><div><dt>Still to play</dt><dd>Central District Cityboys, Commish Campi</dd></div></dl>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl l">L</b> 60.7–65.8 vs JAIGNER 69ers</dd></div><div><dt>Points for</dt><dd>1,693.8 <span class="dim">(6th)</span></dd></div><div><dt>Streak</dt><dd>L1</dd></div><div><dt>Last week</dt><dd>#6</dd></div></dl>
         </div>
       </article></section><section class="tier-group tier-4"><h2 class="tier"><span>Playing spoiler</span></h2>
       <article class="team" id="team-9">
         <div class="rank"><span class="num">8</span><span class="move same" title="No change">–</span></div>
         <div class="body">
           <header class="who"><img class="logo " src="../../logos/c43be95eeef3.svg" alt="" loading="lazy"><div><h3>Danimals</h3>
-            <p class="owner">Dan Campi · <span class="rec">7-12</span> · 9th place</p></div></header>
+            <p class="owner">Dan Campi · <span class="rec">7-12</span> · 9th (5th Apples)</p></div></header>
           <div class="note"><p>Scored 47.8, the low of the week, and ran into the league's best offense doing it.</p></div>
-          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl l">L</b> 47.8–98.9 vs Maximum Penalty</dd></div><div><dt>Points for</dt><dd>1,646.7 <span class="dim">(9th)</span></dd></div><div><dt>Streak</dt><dd>L2</dd></div><div><dt>Last week</dt><dd>#8</dd></div><div><dt>Still to play</dt><dd>Washington Generals, JAIGNER 69ers</dd></div></dl>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl l">L</b> 47.8–98.9 vs Maximum Penalty</dd></div><div><dt>Points for</dt><dd>1,646.7 <span class="dim">(9th)</span></dd></div><div><dt>Streak</dt><dd>L2</dd></div><div><dt>Last week</dt><dd>#8</dd></div></dl>
         </div>
       </article>
       <article class="team" id="team-3">
         <div class="rank"><span class="num">9</span><span class="move same" title="No change">–</span></div>
         <div class="body">
           <header class="who"><img class="logo " src="../../logos/fc145f8cdeba.jpg" alt="" loading="lazy"><div><h3>Tapps Tiger Muskies</h3>
-            <p class="owner">Kenton Barker · <span class="rec">7-12</span> · 8th place</p></div></header>
+            <p class="owner">Kenton Barker · <span class="rec">7-12</span> · 8th (4th Apples)</p></div></header>
           <div class="note"><p>Lost to a team that hadn't won all season. Four straight losses.</p></div>
-          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl l">L</b> 69.5–75.6 vs Central District Cityboys</dd></div><div><dt>Points for</dt><dd>1,657.0 <span class="dim">(8th)</span></dd></div><div><dt>Streak</dt><dd>L4</dd></div><div><dt>Last week</dt><dd>#9</dd></div><div><dt>Still to play</dt><dd>Commish Campi, Maximum Penalty</dd></div></dl>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl l">L</b> 69.5–75.6 vs Central District Cityboys</dd></div><div><dt>Points for</dt><dd>1,657.0 <span class="dim">(8th)</span></dd></div><div><dt>Streak</dt><dd>L4</dd></div><div><dt>Last week</dt><dd>#9</dd></div></dl>
         </div>
       </article>
       <article class="team" id="team-8">
         <div class="rank"><span class="num">10</span><span class="move same" title="No change">–</span></div>
         <div class="body">
           <header class="who"><img class="logo " src="../../logos/6364aecf0f2e.jpg" alt="" loading="lazy"><div><h3>Central District Cityboys</h3>
-            <p class="owner">Andrew Doron · <span class="rec">1-18</span> · 10th place</p></div></header>
+            <p class="owner">Andrew Doron · <span class="rec">1-18</span> · 10th (5th Dudes)</p></div></header>
           <div class="note"><p>First win of the year, 75.6 to 69.5 over the Muskies. Now 1-18 and free to ruin someone's season.</p></div>
-          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl w">W</b> 75.6–69.5 vs Tapps Tiger Muskies</dd></div><div><dt>Points for</dt><dd>1,439.1 <span class="dim">(10th)</span></dd></div><div><dt>Streak</dt><dd>W1</dd></div><div><dt>Last week</dt><dd>#10</dd></div><div><dt>Still to play</dt><dd>The leafs if they were good, Chiang Mai Knockouts</dd></div></dl>
+          <dl class="facts"><div><dt>Week 19</dt><dd><b class="wl w">W</b> 75.6–69.5 vs Tapps Tiger Muskies</dd></div><div><dt>Points for</dt><dd>1,439.1 <span class="dim">(10th)</span></dd></div><div><dt>Streak</dt><dd>W1</dd></div><div><dt>Last week</dt><dd>#10</dd></div></dl>
         </div>
       </article></section>
   </section>
 
   <footer><p>Stats from ESPN through Sunday, Mar 1. Rankings are the commissioner&#x27;s opinion and don&#x27;t change the standings.</p></footer>
 </main>
+<style>
+  /* Same white card in every style, so the navy and green brand reads on dark pages too. */
+  .built-by { box-sizing: border-box; width: calc(100% - 32px); margin: 28px auto calc(24px + env(safe-area-inset-bottom, 0px)); max-width: 420px; background: #fff; color: #1d2a3a; border-radius: 14px; padding: 22px 20px 20px; display: grid; justify-items: center; gap: 14px; text-align: center; font: 400 15px/1.45 -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif; box-shadow: 0 1px 3px rgba(0, 0, 0, .18); }
+  .built-by .by { margin: 0; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #6b7684; }
+  .built-by .mark { display: grid; justify-items: center; gap: 10px; text-decoration: none; border-radius: 6px; }
+  .built-by .mark:focus-visible { outline: 2px solid #1f6b3a; outline-offset: 4px; }
+  .built-by .folder { height: 56px; width: auto; display: block; }
+  .built-by .word { height: 22px; width: auto; display: block; }
+  .built-by .pitch { margin: 0; max-width: 30ch; font-size: 16px; font-weight: 500; color: #1d2a3a; }
+  .built-by .contact { margin: 0; padding: 12px 0 0; list-style: none; border-top: 1px solid #e3e6ea; width: 100%; display: grid; gap: 6px; }
+  .built-by .contact a { color: #1f6b3a; font-weight: 600; text-decoration: none; }
+  .built-by .contact a:hover { text-decoration: underline; }
+</style>
+<aside class="built-by" aria-label="Built by Condition Works">
+  <p class="by">Built by</p>
+  <a class="mark" href="https://www.conditionworks.ai" aria-label="Condition Works">
+    <img class="folder" src="../../brand/logo-folder.png" alt="" width="156" height="144">
+    <img class="word" src="../../brand/logo-wordmark.png" alt="Condition Works" width="450" height="48">
+  </a>
+  <p class="pitch">Curious how AI applies to your work specifically? Let’s chat.</p>
+  <ul class="contact">
+    <li><a href="mailto:david@conditionworks.ai">david@conditionworks.ai</a></li>
+    <li><a href="tel:+14257368851">425-736-8851</a></li>
+    <li><a href="https://www.conditionworks.ai">conditionworks.ai</a></li>
+    <li><a href="https://cal.com/conditionworks/introduction-meeting?ref=power-rankings">Book an intro call</a></li>
+  </ul>
+</aside>
+
 </body>
 </html>

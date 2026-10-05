@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hockey Squad Power Rankings</title>
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Hockey Squad Power Rankings">
+<meta property="og:description" content="1. Chiang Mai Knockouts · 2. Danimals · 3. Commish Campi">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@700;900&family=Saira+Condensed:wght@500;700&family=Saira:wght@400;500&family=Anton&family=Questrial&display=swap">
+<style>
+  /* The arena scoreboard up top, 1990 Score hockey cards below. One dark look on
+     purpose, whatever the phone's setting. */
+  /* Doto draws "." as a plus, so 98.9 read as 98+9: take just the period from a plain bold face */
+  @font-face { font-family: "LED Dot"; src: local("Arial-BoldMT"), local("Arial Bold"), local("Helvetica-Bold"), local("Helvetica Bold"); unicode-range: U+2E; }
+  :root {
+    --arena: #0b0f14;
+    --panel: #121922;
+    --panel-edge: #232e3b;
+    --text: #eef2f6;
+    --soft: #c9d2dc;
+    --muted: #8391a2;
+    --amber: #ffb627;
+    --amber-dim: #8a6a2a;
+    --red: #ff4b3e;
+    --green: #3ee07a;
+    --glow-amber: 0 0 10px rgba(255, 182, 39, .45);
+    --glow-red: 0 0 10px rgba(255, 75, 62, .5);
+    --led: "LED Dot", "Doto", ui-monospace, Menlo, monospace;
+    --label: "Saira Condensed", "Arial Narrow", sans-serif;
+    --body: "Saira", "Helvetica Neue", Arial, sans-serif;
+    --anton: "Anton", "Impact", "Arial Narrow", sans-serif;
+    --card-text: "Questrial", "Avant Garde", "Century Gothic", sans-serif;
+    --card-blue: #5064c9;
+    --card-navy: #1b2a7a;
+    --banner-blue: #2c4fbe;
+    --card-red: #e3312f;
+    --purple: #7a3aa3;
+    --butter: #f6f0a6;
+    --maroon: #6c2250;
+    --logo-yellow: #ffe01a;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: radial-gradient(120% 60% at 50% 0%, #17212c 0%, var(--arena) 60%) var(--arena);
+    color: var(--text);
+    font: 400 16.5px/1.55 var(--body);
+    padding-inline: 16px;
+    padding-block: calc(20px + env(safe-area-inset-top, 0px)) calc(40px + env(safe-area-inset-bottom, 0px));
+  }
+  .wrap { max-width: 640px; margin: 0 auto; display: grid; gap: 34px; }
+  /* LED panel: a faint grid of unlit bulbs */
+  .panel, .game, header.masthead {
+    background-color: var(--panel);
+    background-image: radial-gradient(rgba(255, 255, 255, .045) 1px, transparent 1.3px);
+    background-size: 6px 6px;
+    border: 1px solid var(--panel-edge);
+    border-radius: 10px;
+  }
+
+  header.masthead { display: grid; gap: 10px; padding: 18px 16px 20px; border-top: 4px solid var(--red); }
+  .eyebrow { margin: 0; font: 700 14px/1.2 var(--label); letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+  h1 { margin: 0; font: 900 clamp(30px, 8.6vw, 46px)/1.05 var(--led); color: var(--amber); text-shadow: var(--glow-amber); text-transform: uppercase; text-wrap: balance; }
+  .week-line { margin: 0; font: 700 15px/1.3 var(--label); letter-spacing: .12em; text-transform: uppercase; color: var(--red); text-shadow: var(--glow-red); font-variant-numeric: tabular-nums; }
+  .intro { display: grid; gap: 10px; margin-top: 4px; }
+  .intro p { margin: 0; color: var(--soft); max-width: 62ch; }
+  .intro:empty { display: none; }
+  .sample { margin: 0 0 4px; padding: 8px 12px; border: 1px dashed var(--muted); border-radius: 6px; font-size: 14px; color: var(--muted); }
+
+  h2.section { margin: 0 0 12px; font: 700 20px/1 var(--label); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+
+  /* the week */
+  .games { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; }
+  .game { padding: 10px 12px; display: grid; gap: 6px; }
+  .game .line { display: grid; grid-template-columns: 22px 1fr auto; align-items: center; gap: 10px; color: var(--muted); font: 500 16px/1.2 var(--label); text-transform: uppercase; letter-spacing: .03em; }
+  .game .line.win { color: var(--text); }
+  .game .nm { overflow-wrap: anywhere; }
+  .game .sc { font: 900 22px/1 var(--led); color: var(--amber-dim); font-variant-numeric: tabular-nums; }
+  .game .line.win .sc { color: var(--amber); text-shadow: var(--glow-amber); }
+  .awards { margin: 14px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+  .award { display: grid; gap: 6px; align-content: start; padding: 12px; background: var(--panel); border: 1px solid var(--panel-edge); border-radius: 10px; }
+  .award dt { font: 700 13px/1.2 var(--label); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+  .award dd { margin: 0; display: grid; gap: 4px; }
+  .award .big { font: 900 30px/1 var(--led); color: var(--amber); text-shadow: var(--glow-amber); font-variant-numeric: tabular-nums; }
+  .award .by { font-size: 14.5px; line-height: 1.35; color: var(--soft); overflow-wrap: anywhere; }
+
+  /* the rankings, on 1990 Score hockey cards: each tier gets the front's
+     "Future Superstar" banner, each team the back of a card */
+  .tier-group { display: grid; gap: 22px; }
+  .tier-group + .tier-group { margin-top: 34px; }
+  h2.tier { margin: 0; background: var(--banner-blue); border-block: 6px solid var(--card-red); outline: 3px solid #fbfbf7; outline-offset: -9px; padding: 14px 16px 12px; text-align: center; }
+  h2.tier span { font: 400 clamp(28px, 8.4vw, 40px)/1 var(--anton); color: var(--logo-yellow); text-transform: uppercase; letter-spacing: .02em; -webkit-text-stroke: 1.5px var(--card-navy); paint-order: stroke fill; text-shadow: 3px 3px 0 var(--card-navy); }
+  .tier-blurb p { margin: 0; color: var(--soft); }
+  .team {
+    background: var(--card-blue);
+    border: 6px solid #fbfbf7;
+    border-radius: 10px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .5);
+    padding: 8px 10px 12px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 43%;
+    grid-template-areas: "num photo" "panels photo" "score photo" "record record";
+    column-gap: 10px;
+    color: #141414;
+  }
+  .team { position: relative; }
+  /* One gold cup per league title, in the card's top-right corner. */
+  .cups { position: absolute; top: 6px; right: 8px; display: flex; gap: 3px; margin: 0; padding: 0; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .cups svg { width: 26px; height: 35px; display: block; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .45)); }
+  .cups:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 4px; }
+  /* Hover, or tap on a phone, names the seasons. */
+  .cups-tip { position: absolute; top: calc(100% + 6px); right: 0; z-index: 2; white-space: nowrap; padding: 5px 9px; border-radius: 6px; background: var(--card-navy); color: #fff; font: 600 13px/1.2 var(--label); box-shadow: 0 4px 12px rgba(0, 0, 0, .4); opacity: 0; visibility: hidden; transition: opacity .12s; }
+  .cups:hover .cups-tip, .cups:focus .cups-tip { opacity: 1; visibility: visible; }
+  .num-row { grid-area: num; display: flex; align-items: center; gap: 8px; min-height: 40px; }
+  .num { font: 400 36px/1 var(--anton); color: #fff; text-shadow: 2px 2px 0 rgba(0, 0, 0, .25); font-variant-numeric: tabular-nums; }
+  .move { font: 700 13px/1 var(--label); padding: 4px 7px; border-radius: 999px; background: #fff; white-space: nowrap; }
+  .move.up { color: #13804a; }
+  .move.down { color: #c62828; }
+  .move.same { color: #e3e8ff; background: transparent; }
+  .move.new { color: var(--card-navy); }
+  .photo { grid-area: photo; align-self: center; }
+  .photo .logo { width: 100%; height: auto; aspect-ratio: 1; border-radius: 50%; border: 8px solid var(--card-red); background: radial-gradient(circle at 50% 42%, #fff 0 48%, #cfd5dc 100%); object-fit: contain; padding: 15%; display: block; }
+  .photo .logo.mono { display: grid; place-items: center; font: 400 48px/1 var(--anton); color: var(--card-blue); }
+  .panels { grid-area: panels; display: grid; }
+  .name { margin: 0; background: #fff; padding: 12px 8px 10px; text-align: center; font: 400 clamp(22px, 6.6vw, 30px)/1.02 var(--anton); text-transform: uppercase; letter-spacing: .01em; color: var(--card-blue); -webkit-text-stroke: .6px var(--card-navy); overflow-wrap: anywhere; }
+  .band { margin: 0; background: var(--purple); color: #fff; padding: 7px 8px 6px; text-align: center; font: 400 16px/1.1 var(--anton); text-transform: uppercase; letter-spacing: .03em; overflow-wrap: anywhere; }
+  .bio { margin: 0; background: #fff; padding: 8px 6px 10px; text-align: center; font: 500 13.5px/1.35 var(--label); color: #1b1b1b; }
+  .bio span { display: inline-block; margin: 0 4px; }
+  .bio b { font-weight: 500; }
+  /* where the Score logo sits on the real card: this team's score for the week */
+  .wk-score { grid-area: score; margin: 10px 0 2px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .wk-pts { position: relative; display: inline-block; padding-left: 24px; font: 400 36px/1 var(--anton); color: var(--logo-yellow); transform: skewX(-12deg); text-shadow: 2px 2px 0 #111, 3px 3px 0 #111; font-variant-numeric: tabular-nums; }
+  .wk-pts::before { content: ""; position: absolute; left: 0; top: 22%; width: 22px; height: 56%; background: repeating-linear-gradient(180deg, var(--logo-yellow) 0 3px, transparent 3px 7px); clip-path: polygon(45% 0, 100% 0, 100% 100%, 0 100%); }
+  .wk-label { font: 700 12px/1 var(--label); letter-spacing: .14em; text-transform: uppercase; color: #fff; }
+  .record { grid-area: record; margin-top: 10px; background: var(--butter); padding: 12px 12px 14px; }
+  .record h4 { margin: 0 0 6px; text-align: center; font: 700 14.5px/1.25 var(--label); letter-spacing: .04em; text-transform: uppercase; color: var(--maroon); }
+  .record table { width: 100%; border-collapse: collapse; font: 500 14.5px/1.25 var(--label); color: #1d1420; font-variant-numeric: tabular-nums; }
+  .record th, .record td { padding: 5px 4px; text-align: right; vertical-align: top; }
+  .record th:nth-child(-n+2), .record td:nth-child(-n+2) { text-align: left; }
+  /* The result column, right-aligned top to bottom; the totals row's first cell spans two columns.
+     The record hangs left from that edge into the empty space beside "Season totals", so it never
+     wraps or widens the column. */
+  .record thead th:nth-child(3), .record tbody td:nth-child(3) { text-align: right; }
+  .record tfoot td:nth-child(2) { position: relative; }
+  .record tfoot .rec { position: absolute; top: 5px; right: 4px; white-space: nowrap; }
+  .record thead th { color: var(--maroon); font-weight: 700; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; border-top: 2px solid var(--maroon); border-bottom: 1.5px solid var(--maroon); }
+  .record td.opp { overflow-wrap: anywhere; }
+  .record tfoot th, .record tfoot td { color: var(--maroon); font-weight: 700; border-top: 1.5px solid var(--maroon); border-bottom: 2px solid var(--maroon); }
+  .record tfoot th { font-size: 13px; letter-spacing: .04em; text-transform: uppercase; }
+  .res.w { color: #13804a; font-weight: 700; }
+  .res.l { color: #c62828; font-weight: 700; }
+  .record .note { margin-top: 10px; display: grid; gap: 8px; font: 400 16px/1.45 var(--card-text); color: #111; text-align: justify; -webkit-hyphens: auto; hyphens: auto; }
+  .record .note p { margin: 0; }
+  .logo { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; background: #1b2430; border: 2px solid var(--panel-edge); display: block; }
+  .logo.sm { width: 22px; height: 22px; border-width: 1px; }
+  .logo.mono { display: grid; place-items: center; font: 700 15px/1 var(--label); color: var(--muted); }
+  .logo.mono.sm { font-size: 9px; }
+
+  footer { font-size: 13.5px; color: var(--muted); border-top: 1px solid var(--panel-edge); padding-top: 14px; }
+  footer p { margin: 0; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="masthead">
+    <p class="eyebrow">Hockey Squad · 2026–27 season</p>
+    <h1>Hockey Squad Power Rankings</h1>
+    <p class="week-line">Week 1 of 23 · Sep 29 – Oct 4, 2026</p>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Libre+Caslon+Text:wght@700&family=Mrs+Saint+Delafield&display=swap">
+<style>
+  /* The commissioner's memo: the same sheet of paper in every style. */
+  .memo { position: relative; overflow: hidden; margin: 10px 0 0; padding: 20px 18px 18px; background: #fbf8ef; color: #1c1c1c; border-radius: 3px; box-shadow: 0 1px 2px rgba(0, 0, 0, .25), 0 6px 18px rgba(0, 0, 0, .18); font: 400 15px/1.55 "Courier Prime", "Courier New", monospace; text-align: left; letter-spacing: 0; text-transform: none; }
+  .memo-head { display: flex; align-items: center; gap: 12px; padding-bottom: 12px; border-bottom: 3px double #1c1c1c; }
+  .memo-head img { width: 40px; height: auto; flex: none; display: block; }
+  .memo-org { margin: 0; font: 700 17px/1.15 "Libre Caslon Text", Georgia, serif; letter-spacing: .04em; text-transform: uppercase; color: #12233b; }
+  .memo-office { margin: 2px 0 0; font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; color: #5b5b5b; }
+  .memo-title { margin: 14px 0 10px; font: 700 15px/1 "Courier Prime", monospace; letter-spacing: .32em; text-transform: uppercase; color: #1c1c1c; text-shadow: none; }
+  .memo-fields { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; padding-bottom: 12px; border-bottom: 1px solid #1c1c1c; }
+  .memo-fields dt { font-weight: 700; }
+  .memo-fields dd { margin: 0; }
+  .memo-body { padding-top: 12px; display: grid; gap: 10px; }
+  .memo-body p { margin: 0; }
+  .memo-sign { margin: 14px 0 0; display: grid; justify-items: start; }
+  .memo-sign .sig { font: 400 40px/1 "Mrs Saint Delafield", cursive; color: #1d3a8a; margin: 0 0 -4px 6px; }
+  .memo-sign .who { white-space: nowrap; font-size: 13px; border-top: 1px solid #1c1c1c; padding-top: 2px; }
+  .memo-stamp { position: absolute; top: 74px; right: 10px; transform: rotate(-14deg); padding: 3px 10px; border: 3px solid rgba(178, 34, 34, .72); border-radius: 4px; color: rgba(178, 34, 34, .72); font: 700 20px/1.1 "Courier Prime", monospace; letter-spacing: .14em; text-transform: uppercase; pointer-events: none; }
+  .memo-note { margin: 14px 0 0; padding-top: 8px; border-top: 1px dashed #9a958a; font-size: 12px; line-height: 1.4; color: #6b675e; }
+</style>
+<article class="memo" aria-label="Memo from the commissioner">
+  <div class="memo-head">
+    <img src="../../brand/nhl-shield.svg" alt="" width="40" height="45">
+    <div>
+      <p class="memo-org">Hockey Squad</p>
+      <p class="memo-office">Office of the Commissioner</p>
+    </div>
+  </div>
+  <p class="memo-title">Memorandum</p>
+  <dl class="memo-fields">
+    <dt>TO:</dt><dd>All Franchise Owners</dd>
+    <dt>FROM:</dt><dd>The Commissioner</dd>
+    <dt>DATE:</dt><dd>Monday, October 5, 2026</dd>
+    <dt>RE:</dt><dd>Week 1 Proceedings</dd>
+  </dl>
+  <div class="memo-body"><p>WHEREAS the Week 1 matchup period, running Tuesday, September 29 through Sunday, October 4, 2026, has concluded, being the first (1st) of twenty-three (23) such periods, the Office of the Commissioner hereby enters the following into the record.</p><p><strong>Item 1.</strong> The League is hereby declared back in session. The Commissioner notes that it was a pleasure to see everyone at the draft. The draft was conducted across the members' varied time zones, and the League made it work as best it could, which the record will reflect as good enough.</p><p><strong>Item 2.</strong> The power rankings will be issued in this new format, on a trial basis. Feedback is welcomed and will be received by the Office of the Commissioner.</p><p><strong>Item 3.</strong> As is custom every year, the season's opening power rankings shall first honor the Champions of the League. All remaining franchises shall then be ranked on Week 1 performance. Owners are advised that the Tier system is subject to change from week to week, without notice and without appeal.</p><p><strong>Item 4.</strong> In his first week in the League, Ryan, doing business as HutsonBrothersRazzleDazzleShow, defeated The leafs if they were good 106.4 to 69.2. This was the highest score of the period, and he now sits atop the standings at 1-0. The League has been formally put on notice. An inquiry into who invited this guy remains open.</p><p>With twenty-two (22) weeks remaining, all franchise owners are reminded that lineups are to be set in good faith. So ordered.</p></div>
+  <p class="memo-sign"><span class="sig">D. Campi</span><span class="who">Commissioner, Hockey Squad</span></p>
+  
+  
+</article>
+
+    <div class="intro"></div>
+  </header>
+
+  <section aria-labelledby="week-head">
+    <h2 class="section" id="week-head">Week 1 results</h2>
+    <div class="games"><div class="game"><div class="line win"><img class="logo sm" src="../../logos/dcd0684c6e13.svg" alt="" loading="lazy"><span class="nm">HutsonBrothersRazzleDazzleShow</span><span class="sc">106.4</span></div><div class="line "><img class="logo sm" src="../../logos/4d58aca191f9.jpg" alt="" loading="lazy"><span class="nm">The leafs if they were good</span><span class="sc">69.2</span></div></div> <div class="game"><div class="line win"><img class="logo sm" src="../../logos/fc145f8cdeba.jpg" alt="" loading="lazy"><span class="nm">Tapps Tiger Muskies</span><span class="sc">74.1</span></div><div class="line "><img class="logo sm" src="../../logos/b1f3f3063a09.svg" alt="" loading="lazy"><span class="nm">Chiang Mai Knockouts</span><span class="sc">73.2</span></div></div> <div class="game"><div class="line win"><img class="logo sm" src="../../logos/a2a58021e11a.jpg" alt="" loading="lazy"><span class="nm">Commish Campi</span><span class="sc">80.5</span></div><div class="line "><img class="logo sm" src="../../logos/a44a2aff861e.svg" alt="" loading="lazy"><span class="nm">JAIGNER 69ers</span><span class="sc">74.5</span></div></div> <div class="game"><div class="line win"><img class="logo sm" src="../../logos/c43be95eeef3.svg" alt="" loading="lazy"><span class="nm">Danimals</span><span class="sc">93.5</span></div><div class="line "><img class="logo sm" src="../../logos/3cf3c8f5cf35.jpg" alt="" loading="lazy"><span class="nm">Liberate The Big Squid</span><span class="sc">80.2</span></div></div> <div class="game"><div class="line win"><img class="logo sm" src="../../logos/1ffafe70ed89.svg" alt="" loading="lazy"><span class="nm">Maximum Penalty</span><span class="sc">97.4</span></div><div class="line "><img class="logo sm" src="../../logos/6d9e0302cda7.svg" alt="" loading="lazy"><span class="nm">🎶Hey! Hey baby (Luc Dubois)🎶</span><span class="sc">45.8</span></div></div></div>
+    <dl class="awards"><div class="award"><dt>High score</dt><dd><span class="big">106.4</span><span class="by">HutsonBrothersRazzleDazzleShow</span></dd></div><div class="award"><dt>Low score</dt><dd><span class="big">45.8</span><span class="by">🎶Hey! Hey baby (Luc Dubois)🎶</span></dd></div><div class="award"><dt>Closest game</dt><dd><span class="big">0.9 pts</span><span class="by">Tapps Tiger Muskies over Chiang Mai Knockouts</span></dd></div><div class="award"><dt>Biggest blowout</dt><dd><span class="big">51.6 pts</span><span class="by">Maximum Penalty over 🎶Hey! Hey baby (Luc Dubois)🎶</span></dd></div><div class="award"><dt>Tough luck</dt><dd><span class="big">80.2</span><span class="by">Liberate The Big Squid outscored 5 of 9 teams and still lost</span></dd></div><div class="award"><dt>Player of the week</dt><dd><span class="big">15.8 pts</span><span class="by">Jeremy Swayman (G, BOS) for JAIGNER 69ers</span></dd></div></dl>
+  </section>
+
+  <section aria-labelledby="rank-head">
+    <h2 class="section" id="rank-head">Current Power Rankings</h2>
+    <section class="tier-group tier-1"><h2 class="tier"><span>Champions</span></h2>
+      <article class="team" id="team-7">
+        <div class="num-row"><span class="num">1</span></div>
+        <div class="photo"><img class="logo " src="../../logos/b1f3f3063a09.svg" alt="" loading="lazy"></div>
+        <button class="cups" type="button" aria-label="2-time champion: 2024–25, 2025–26"><svg viewBox="0 0 24 32" aria-hidden="true"><g fill="#f4c430" stroke="#7a5b00" stroke-width="1.2"><path d="M6.5 1.5h11l-1.2 5.2a4.4 4.4 0 0 1-8.6 0Z"/><rect x="10.3" y="9.6" width="3.4" height="2.6"/><rect x="8" y="12.2" width="8" height="4" rx=".6"/><rect x="6.4" y="16.2" width="11.2" height="5" rx=".6"/><rect x="4.8" y="21.2" width="14.4" height="9" rx="1"/></g><path d="M8.6 3h2.2l-.4 3.4" fill="none" stroke="#fff6c8" stroke-width="1.1" stroke-linecap="round"/></svg><svg viewBox="0 0 24 32" aria-hidden="true"><g fill="#f4c430" stroke="#7a5b00" stroke-width="1.2"><path d="M6.5 1.5h11l-1.2 5.2a4.4 4.4 0 0 1-8.6 0Z"/><rect x="10.3" y="9.6" width="3.4" height="2.6"/><rect x="8" y="12.2" width="8" height="4" rx=".6"/><rect x="6.4" y="16.2" width="11.2" height="5" rx=".6"/><rect x="4.8" y="21.2" width="14.4" height="9" rx="1"/></g><path d="M8.6 3h2.2l-.4 3.4" fill="none" stroke="#fff6c8" stroke-width="1.1" stroke-linecap="round"/></svg><span class="cups-tip" aria-hidden="true">2-time champion: 2024–25, 2025–26</span></button>
+        <div class="panels">
+          <h3 class="name">Chiang Mai Knockouts</h3>
+          <p class="band">Scott Kalma</p>
+          <p class="bio"><span><b>Record:</b> 0-1</span><span><b>Place:</b> 8th (4th Apples)</span><span><b>Streak:</b> L1</span></p>
+        </div>
+        <p class="wk-score"><span class="wk-pts">73.2</span><span class="wk-label">Week 1</span></p>
+        <div class="record">
+          <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
+          <table>
+            <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
+            <tbody><tr><td>1</td><td class="opp">Tapps Tiger Muskies</td><td class="res l">L</td><td>73.2</td><td>74.1</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">0-1</span></td><td>73.2</td><td>74.1</td></tr></tfoot>
+          </table>
+          <div class="note"><p>Back-to-Back Champion. Let's not sugar coat things, Scott is HOT. like SE Asia HOT. Two straight championships... but now losing to Kenton? Uh-Oh!</p></div>
+        </div>
+      </article>
+      <article class="team" id="team-9">
+        <div class="num-row"><span class="num">2</span></div>
+        <div class="photo"><img class="logo " src="../../logos/c43be95eeef3.svg" alt="" loading="lazy"></div>
+        <button class="cups" type="button" aria-label="Champion 2022–23"><svg viewBox="0 0 24 32" aria-hidden="true"><g fill="#f4c430" stroke="#7a5b00" stroke-width="1.2"><path d="M6.5 1.5h11l-1.2 5.2a4.4 4.4 0 0 1-8.6 0Z"/><rect x="10.3" y="9.6" width="3.4" height="2.6"/><rect x="8" y="12.2" width="8" height="4" rx=".6"/><rect x="6.4" y="16.2" width="11.2" height="5" rx=".6"/><rect x="4.8" y="21.2" width="14.4" height="9" rx="1"/></g><path d="M8.6 3h2.2l-.4 3.4" fill="none" stroke="#fff6c8" stroke-width="1.1" stroke-linecap="round"/></svg><span class="cups-tip" aria-hidden="true">Champion 2022–23</span></button>
+        <div class="panels">
+          <h3 class="name">Danimals</h3>
+          <p class="band">Dan Campi</p>
+          <p class="bio"><span><b>Record:</b> 1-0</span><span><b>Place:</b> 2nd (1st Apples)</span><span><b>Streak:</b> W1</span></p>
+        </div>
+        <p class="wk-score"><span class="wk-pts">93.5</span><span class="wk-label">Week 1</span></p>
+        <div class="record">
+          <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
+          <table>
+            <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
+            <tbody><tr><td>1</td><td class="opp">Liberate The Big Squid</td><td class="res w">W</td><td>93.5</td><td>80.2</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">1-0</span></td><td>93.5</td><td>80.2</td></tr></tfoot>
+          </table>
+          <div class="note"><p>Solid win over another former Champ. Always feels good to catch a win over the Squid when you can. Enjoy being 1-0 while on your fall foliage Lake Willoughby trip!</p></div>
+        </div>
+      </article>
+      <article class="team" id="team-1">
+        <div class="num-row"><span class="num">3</span></div>
+        <div class="photo"><img class="logo " src="../../logos/a2a58021e11a.jpg" alt="" loading="lazy"></div>
+        <button class="cups" type="button" aria-label="Champion 2023–24"><svg viewBox="0 0 24 32" aria-hidden="true"><g fill="#f4c430" stroke="#7a5b00" stroke-width="1.2"><path d="M6.5 1.5h11l-1.2 5.2a4.4 4.4 0 0 1-8.6 0Z"/><rect x="10.3" y="9.6" width="3.4" height="2.6"/><rect x="8" y="12.2" width="8" height="4" rx=".6"/><rect x="6.4" y="16.2" width="11.2" height="5" rx=".6"/><rect x="4.8" y="21.2" width="14.4" height="9" rx="1"/></g><path d="M8.6 3h2.2l-.4 3.4" fill="none" stroke="#fff6c8" stroke-width="1.1" stroke-linecap="round"/></svg><span class="cups-tip" aria-hidden="true">Champion 2023–24</span></button>
+        <div class="panels">
+          <h3 class="name">Commish Campi</h3>
+          <p class="band">David Campi</p>
+          <p class="bio"><span><b>Record:</b> 1-0</span><span><b>Place:</b> 4th (3rd Dudes)</span><span><b>Streak:</b> W1</span></p>
+        </div>
+        <p class="wk-score"><span class="wk-pts">80.5</span><span class="wk-label">Week 1</span></p>
+        <div class="record">
+          <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
+          <table>
+            <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
+            <tbody><tr><td>1</td><td class="opp">JAIGNER 69ers</td><td class="res w">W</td><td>80.5</td><td>74.5</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">1-0</span></td><td>80.5</td><td>74.5</td></tr></tfoot>
+          </table>
+          <div class="note"><p>Solid week, always nice pull up the matchup scores and realize I've won while sitting next to Joe at a Kraken game. Fortunately Joe's son is too young to understand that his dad lost.</p></div>
+        </div>
+      </article>
+      <article class="team" id="team-2">
+        <div class="num-row"><span class="num">4</span></div>
+        <div class="photo"><img class="logo " src="../../logos/3cf3c8f5cf35.jpg" alt="" loading="lazy"></div>
+        <button class="cups" type="button" aria-label="Champion 2021–22"><svg viewBox="0 0 24 32" aria-hidden="true"><g fill="#f4c430" stroke="#7a5b00" stroke-width="1.2"><path d="M6.5 1.5h11l-1.2 5.2a4.4 4.4 0 0 1-8.6 0Z"/><rect x="10.3" y="9.6" width="3.4" height="2.6"/><rect x="8" y="12.2" width="8" height="4" rx=".6"/><rect x="6.4" y="16.2" width="11.2" height="5" rx=".6"/><rect x="4.8" y="21.2" width="14.4" height="9" rx="1"/></g><path d="M8.6 3h2.2l-.4 3.4" fill="none" stroke="#fff6c8" stroke-width="1.1" stroke-linecap="round"/></svg><span class="cups-tip" aria-hidden="true">Champion 2021–22</span></button>
+        <div class="panels">
+          <h3 class="name">Liberate The Big Squid</h3>
+          <p class="band">David Degginger</p>
+          <p class="bio"><span><b>Record:</b> 0-1</span><span><b>Place:</b> 6th (3rd Apples)</span><span><b>Streak:</b> L1</span></p>
+        </div>
+        <p class="wk-score"><span class="wk-pts">80.2</span><span class="wk-label">Week 1</span></p>
+        <div class="record">
+          <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
+          <table>
+            <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
+            <tbody><tr><td>1</td><td class="opp">Danimals</td><td class="res l">L</td><td>80.2</td><td>93.5</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">0-1</span></td><td>80.2</td><td>93.5</td></tr></tfoot>
+          </table>
+          <div class="note"><p>The path to Liberty isn't a straight line. Catch the Squid while you can. Once this team gets hot... look out.</p></div>
+        </div>
+      </article></section><section class="tier-group tier-2"><h2 class="tier"><span>Future Champions? Could Be You?</span></h2>
+      <article class="team" id="team-8">
+        <div class="num-row"><span class="num">5</span></div>
+        <div class="photo"><img class="logo " src="../../logos/dcd0684c6e13.svg" alt="" loading="lazy"></div>
+        
+        <div class="panels">
+          <h3 class="name">HutsonBrothersRazzleDazzleShow</h3>
+          <p class="band">Ryan Barinbaum</p>
+          <p class="bio"><span><b>Record:</b> 1-0</span><span><b>Place:</b> 1st (1st Dudes)</span><span><b>Streak:</b> W1</span></p>
+        </div>
+        <p class="wk-score"><span class="wk-pts">106.4</span><span class="wk-label">Week 1</span></p>
+        <div class="record">
+          <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
+          <table>
+            <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
+            <tbody><tr><td>1</td><td class="opp">The leafs if they were good</td><td class="res w">W</td><td>106.4</td><td>69.2</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">1-0</span></td><td>106.4</td><td>69.2</td></tr></tfoot>
+          </table>
+          <div class="note"><p>Razzle Dazzle Show indeed! Huge numbers for week 1. Can't decide if I'm happy to have you or be pissed at Tuvin for sending us a ringer.</p></div>
+        </div>
+      </article>
+      <article class="team" id="team-4">
+        <div class="num-row"><span class="num">6</span></div>
+        <div class="photo"><img class="logo " src="../../logos/1ffafe70ed89.svg" alt="" loading="lazy"></div>
+        
+        <div class="panels">
+          <h3 class="name">Maximum Penalty</h3>
+          <p class="band">Danny Degginger</p>
+          <p class="bio"><span><b>Record:</b> 1-0</span><span><b>Place:</b> 3rd (2nd Dudes)</span><span><b>Streak:</b> W1</span></p>
+        </div>
+        <p class="wk-score"><span class="wk-pts">97.4</span><span class="wk-label">Week 1</span></p>
+        <div class="record">
+          <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
+          <table>
+            <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
+            <tbody><tr><td>1</td><td class="opp">🎶Hey! Hey baby (Luc Dubois)🎶</td><td class="res w">W</td><td>97.4</td><td>45.8</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">1-0</span></td><td>97.4</td><td>45.8</td></tr></tfoot>
+          </table>
+          <div class="note"><p>I thought you and Tuvin were friends! You didn't have to do him like that week 1. Could this be the year for Dan to break thru?</p></div>
+        </div>
+      </article>
+      <article class="team" id="team-3">
+        <div class="num-row"><span class="num">7</span></div>
+        <div class="photo"><img class="logo " src="../../logos/fc145f8cdeba.jpg" alt="" loading="lazy"></div>
+        
+        <div class="panels">
+          <h3 class="name">Tapps Tiger Muskies</h3>
+          <p class="band">Kenton Barker</p>
+          <p class="bio"><span><b>Record:</b> 1-0</span><span><b>Place:</b> 5th (2nd Apples)</span><span><b>Streak:</b> W1</span></p>
+        </div>
+        <p class="wk-score"><span class="wk-pts">74.1</span><span class="wk-label">Week 1</span></p>
+        <div class="record">
+          <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
+          <table>
+            <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
+            <tbody><tr><td>1</td><td class="opp">Chiang Mai Knockouts</td><td class="res w">W</td><td>74.1</td><td>73.2</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">1-0</span></td><td>74.1</td><td>73.2</td></tr></tfoot>
+          </table>
+          <div class="note"><p>Scrappy win against the champ. WILL THIS BE THE YEAR KENTON MAKES THE PLAYOFFS?!?!?!?!</p></div>
+        </div>
+      </article>
+      <article class="team" id="team-6">
+        <div class="num-row"><span class="num">8</span></div>
+        <div class="photo"><img class="logo " src="../../logos/a44a2aff861e.svg" alt="" loading="lazy"></div>
+        
+        <div class="panels">
+          <h3 class="name">JAIGNER 69ers</h3>
+          <p class="band">Joe Aigner</p>
+          <p class="bio"><span><b>Record:</b> 0-1</span><span><b>Place:</b> 7th (4th Dudes)</span><span><b>Streak:</b> L1</span></p>
+        </div>
+        <p class="wk-score"><span class="wk-pts">74.5</span><span class="wk-label">Week 1</span></p>
+        <div class="record">
+          <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
+          <table>
+            <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
+            <tbody><tr><td>1</td><td class="opp">Commish Campi</td><td class="res l">L</td><td>74.5</td><td>80.5</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">0-1</span></td><td>74.5</td><td>80.5</td></tr></tfoot>
+          </table>
+          <div class="note"><p>Solid team, plenty of room to grow. Maybe Joe will be more focused on fantasy hockey once a couple of his 25 fantasy football teams get eliminated from the playoffs.</p></div>
+        </div>
+      </article>
+      <article class="team" id="team-5">
+        <div class="num-row"><span class="num">9</span></div>
+        <div class="photo"><img class="logo " src="../../logos/4d58aca191f9.jpg" alt="" loading="lazy"></div>
+        
+        <div class="panels">
+          <h3 class="name">The leafs if they were good</h3>
+          <p class="band">Caden Crowe</p>
+          <p class="bio"><span><b>Record:</b> 0-1</span><span><b>Place:</b> 9th (5th Apples)</span><span><b>Streak:</b> L1</span></p>
+        </div>
+        <p class="wk-score"><span class="wk-pts">69.2</span><span class="wk-label">Week 1</span></p>
+        <div class="record">
+          <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
+          <table>
+            <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
+            <tbody><tr><td>1</td><td class="opp">HutsonBrothersRazzleDazzleShow</td><td class="res l">L</td><td>69.2</td><td>106.4</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">0-1</span></td><td>69.2</td><td>106.4</td></tr></tfoot>
+          </table>
+          <div class="note"><p>Ran into a buzz saw week 1. Leading the league in points against is always a tough feeling, but plenty plenty of time to bounce back and get some better luck.</p></div>
+        </div>
+      </article>
+      <article class="team" id="team-10">
+        <div class="num-row"><span class="num">10</span></div>
+        <div class="photo"><img class="logo " src="../../logos/6d9e0302cda7.svg" alt="" loading="lazy"></div>
+        
+        <div class="panels">
+          <h3 class="name">🎶Hey! Hey baby (Luc Dubois)🎶</h3>
+          <p class="band">Alex Tuvin</p>
+          <p class="bio"><span><b>Record:</b> 0-1</span><span><b>Place:</b> 10th (5th Dudes)</span><span><b>Streak:</b> L1</span></p>
+        </div>
+        <p class="wk-score"><span class="wk-pts">45.8</span><span class="wk-label">Week 1</span></p>
+        <div class="record">
+          <h4>Hockey Squad record<span> / fiche du Hockey Squad</span></h4>
+          <table>
+            <thead><tr><th>Wk</th><th>Opponent</th><th>Res</th><th>PF</th><th>PA</th></tr></thead>
+            <tbody><tr><td>1</td><td class="opp">Maximum Penalty</td><td class="res l">L</td><td>45.8</td><td>97.4</td></tr></tbody>
+            <tfoot><tr><th colspan="2">Season totals</th><td><span class="rec">0-1</span></td><td>45.8</td><td>97.4</td></tr></tfoot>
+          </table>
+          <div class="note"><p>One of the more brutal goalie performances of all time really put you in a hole to start the year. Shake it off, regroup, there's always next week. Sometimes the climb to the top starts at the very bottom.</p></div>
+        </div>
+      </article></section>
+  </section>
+
+  <footer><p>Stats from ESPN through Sunday, Oct 4. Rankings are the commissioner&#x27;s opinion and don&#x27;t change the standings.</p></footer>
+</main>
+<style>
+  /* Same white card in every style, so the navy and green brand reads on dark pages too. */
+  .built-by { box-sizing: border-box; width: calc(100% - 32px); margin: 28px auto calc(24px + env(safe-area-inset-bottom, 0px)); max-width: 420px; background: #fff; color: #1d2a3a; border-radius: 14px; padding: 22px 20px 20px; display: grid; justify-items: center; gap: 14px; text-align: center; font: 400 15px/1.45 -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif; box-shadow: 0 1px 3px rgba(0, 0, 0, .18); }
+  .built-by .by { margin: 0; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #6b7684; }
+  .built-by .mark { display: grid; justify-items: center; gap: 10px; text-decoration: none; border-radius: 6px; }
+  .built-by .mark:focus-visible { outline: 2px solid #1f6b3a; outline-offset: 4px; }
+  .built-by .folder { height: 56px; width: auto; display: block; }
+  .built-by .word { height: 22px; width: auto; display: block; }
+  .built-by .pitch { margin: 0; max-width: 30ch; font-size: 16px; font-weight: 500; color: #1d2a3a; }
+  .built-by .contact { margin: 0; padding: 12px 0 0; list-style: none; border-top: 1px solid #e3e6ea; width: 100%; display: grid; gap: 6px; }
+  .built-by .contact a { color: #1f6b3a; font-weight: 600; text-decoration: none; }
+  .built-by .contact a:hover { text-decoration: underline; }
+</style>
+<aside class="built-by" aria-label="Built by Condition Works">
+  <p class="by">Built by</p>
+  <a class="mark" href="https://www.conditionworks.ai" aria-label="Condition Works">
+    <img class="folder" src="../../brand/logo-folder.png" alt="" width="156" height="144">
+    <img class="word" src="../../brand/logo-wordmark.png" alt="Condition Works" width="450" height="48">
+  </a>
+  <p class="pitch">Curious how AI applies to your work specifically? Let’s chat.</p>
+  <ul class="contact">
+    <li><a href="mailto:david@conditionworks.ai">david@conditionworks.ai</a></li>
+    <li><a href="tel:+14257368851">425-736-8851</a></li>
+    <li><a href="https://www.conditionworks.ai">conditionworks.ai</a></li>
+    <li><a href="https://cal.com/conditionworks/introduction-meeting?ref=power-rankings">Book an intro call</a></li>
+  </ul>
+</aside>
+
+</body>
+</html>
